@@ -1,6 +1,6 @@
 package com.fzt.ktzq.interceptor;
 
-import com.fzt.ktzq.model.User;
+import com.fzt.ktzq.dao.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
