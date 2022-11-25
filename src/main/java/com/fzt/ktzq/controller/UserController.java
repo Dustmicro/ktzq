@@ -17,9 +17,9 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/getAll")
-    public List<User> getAll(){
-        List<User> all = userService.getAll();
-        return all;
+    public String getAll(){
+//        List<User> all = userService.getAll();
+        return "all";
     }
 
     @GetMapping("/hello")
