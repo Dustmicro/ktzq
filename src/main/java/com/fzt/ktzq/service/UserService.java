@@ -1,35 +1,73 @@
 package com.fzt.ktzq.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.fzt.ktzq.model.Building;
-import com.fzt.ktzq.model.User;
-import com.github.pagehelper.PageInfo;
+import com.fzt.ktzq.dao.User;
+import com.fzt.ktzq.mapper.UserMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
- * 用户类
- * @author 黄弋峰
+ * 用户服务类
+ * @author 黄弋峰  2022/11/24
  */
-public interface UserService extends IService<User> {
+@Service
+public class UserService {
+
+    @Autowired
+    private UserMapper userMapper;
+
+    public List<User>findAll(){
+        return userMapper.selectAll();
+    }
+
 
     /**
-     * 查询所有用户数据
-     * @param page
-     * @param pageSize
-     * @param numbers
+     * 查询所有用户
      * @return
      */
-    PageInfo<User> findUserAll(int page, int pageSize, String numbers);
+    public List<User> getAll(){
+        return userMapper.all();
+    }
 
-    IPage<User> findListByPage(Integer page, Integer pageCount);
+    /**
+     * 新增用户服务
+     * @param user
+     * @return
+     */
+    public boolean insert(User user){
+        boolean flag = false;
+        try {
+            userMapper.insert(user);
+            flag = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
 
-    int add(User user);
+    /**
+     * 通过id查询用户
+     * @param userId
+     * @return
+     */
+    public User selectUser(String userId){
+        return userMapper.selectByPrimaryKey(userId);
+    }
 
-    int delete(Long id);
-
-    int updateData(User user);
-
-    User findById(Long id);
-
-    User queryUserById(Integer userId);
+    /**
+     * 根据ID删除数据库中信息
+     * @param userId
+     * @return
+     */
+    public boolean deleteById(String userId){
+        boolean flag = false;
+        try{
+            userMapper.deleteByPrimaryKey(userId);
+            flag = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
 }

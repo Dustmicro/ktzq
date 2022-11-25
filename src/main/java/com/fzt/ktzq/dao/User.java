@@ -1,18 +1,23 @@
-package com.fzt.ktzq.model;
+package com.fzt.ktzq.dao;
 
-import io.swagger.annotations.ApiModel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
+import lombok.NoArgsConstructor;
+import tk.mybatis.mapper.annotation.KeySql;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
+
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@ApiModel(value="User对象", description="")
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "u_user")
 public class User implements Serializable {
+    @Id
+    @KeySql(useGeneratedKeys = true)
     private String userId;
 
     private String userName;
