@@ -87,6 +87,11 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream-distribution</artifactId>
+            <version>1.4.19</version>
+        </dependency>
     </dependencies>
 
     <build>
