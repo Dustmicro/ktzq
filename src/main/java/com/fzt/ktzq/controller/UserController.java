@@ -10,19 +10,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * 用户控制类
+ * @author 黄弋峰  2022/11/27
+ */
 @RestController//证明是controller层并且返回json
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/getAll")
-    public String getAll(){
-//        List<User> all = userService.getAll();
-        return "all";
-    }
-
-    @GetMapping("/hello")
+    /**
+     * 查询所有数据
+     * @return
+     */
+    @GetMapping("/selectUserAll")
     public List<User> hello()
     {
         List<User> all = userService.findAll();
