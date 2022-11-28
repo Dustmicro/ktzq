@@ -98,7 +98,12 @@
             <artifactId>java-jwt</artifactId>
             <version>4.2.1</version>
         </dependency>
-<!--        <dependency>-->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>3.8.0</version>
+        </dependency>
+        <!--        <dependency>-->
 <!--            <groupId>com.thoughtworks.xstream</groupId>-->
 <!--            <artifactId>xstream-distribution</artifactId>-->
 <!--            <version>1.4.19</version>-->

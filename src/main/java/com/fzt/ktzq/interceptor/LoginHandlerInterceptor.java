@@ -4,9 +4,13 @@ import com.alibaba.fastjson.JSON;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fzt.ktzq.config.FastBootConfig;
 import com.fzt.ktzq.dao.RestResult;
 import com.fzt.ktzq.service.UserService;
+import com.fzt.ktzq.util.TokenUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +72,37 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
         //验证token
         JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(userId)).build();
         String appId = null;
+        try {
+            DecodedJWT verify = jwtVerifier.verify(token);
+            appId = verify.getClaim(TokenUtil.OWNER_FLAG).asString();
+            logger.debug("appId:{}", appId);
+        } catch (JWTVerificationException e){
+            writeMsg(response, RestResult.failure("-3", "token验证未通过！！"));
+            return false;
+        }
 
+        boolean jugeToken = jugeToken(token, response);
+        if (!jugeToken){
+            return false;
+        }
+        //在这里最好增加一个越权校验并返回结果
+        return true;
+    }
+
+    /**
+     * 判断token
+     * @param token
+     * @param response
+     * @return
+     */
+    private boolean jugeToken(String token, HttpServletResponse response){
+        try {
+            JWT.decode(token).getAudience().get(0);
+        } catch (JWTDecodeException j){
+            writeMsg(response, RestResult.failure("-3", "token验证异常，请重新登陆！！"));
+            return false;
+        }
+        return true;
     }
 
     private void writeMsg(HttpServletResponse response, RestResult<Object> restResult){
