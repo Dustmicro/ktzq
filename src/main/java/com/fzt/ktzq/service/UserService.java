@@ -2,6 +2,7 @@ package com.fzt.ktzq.service;
 
 import com.fzt.ktzq.dao.User;
 import com.fzt.ktzq.mapper.UserMapper;
+import com.fzt.ktzq.util.StringUtilsFzt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -69,5 +70,20 @@ public class UserService {
             e.printStackTrace();
         }
         return flag;
+    }
+
+    /**
+     * 通过用户名查询用户
+     * @param username
+     * @return
+     */
+    public User findUserByUserName(String username){
+        User user = new User();
+        user.setUserName(username);
+        List<User> list = userMapper.findUserByUserName(user);
+        if (StringUtilsFzt.isNotEmpty(list)){
+            return list.get(0);
+        }
+        return null;
     }
 }

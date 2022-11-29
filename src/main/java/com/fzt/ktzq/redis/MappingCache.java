@@ -23,6 +23,7 @@ public class MappingCache extends BaseCache {
     /**公共域**/
     public static final String COMMON_DOMAIN = "DOMAIN.COMMON";
 
+
     /**
      * 获取值
      * @param domain
@@ -79,5 +80,21 @@ public class MappingCache extends BaseCache {
 
         }
         return null;
+    }
+
+    /**
+     * 保存数据
+     * @param dictionary
+     */
+    public static void setValue(Dictionary dictionary){
+        Jedis redis = null;
+        try {
+            redis = getJedis();
+            redis.set((dictionary.getDicName() + dictionary.getDicTypeId()).getBytes(), SerializeUtil.serialize(dictionary));
+        } finally {
+            if (redis != null){
+                redis.close();
+            }
+        }
     }
 }

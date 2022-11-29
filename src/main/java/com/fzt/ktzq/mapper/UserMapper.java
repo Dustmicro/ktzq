@@ -24,6 +24,8 @@ public interface UserMapper extends Mapper<User> {
 
     List<User> list(User record);
 
+    List<User> findUserByUserName(User user);
+
     Page<User> pageList(User record);
 
     List<User> all();
