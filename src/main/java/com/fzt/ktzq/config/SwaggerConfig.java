@@ -14,7 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import static org.reflections.util.ConfigurationBuilder.build;
 
 /**
- * 日志
+ * 接口文档API
  * @author 黄弋峰 2022/11/30
  */
 @Configuration
