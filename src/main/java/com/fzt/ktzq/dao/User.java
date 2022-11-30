@@ -24,7 +24,7 @@ public class User implements Serializable {
 
     private Integer age;
 
-    private Long tel;
+    private String tel;
 
     private Double size;
 
@@ -49,6 +49,8 @@ public class User implements Serializable {
     private Date createTime;
 
     private Date updateTime;
+
+    private Integer pswErrNum;
 
     private static final long serialVersionUID = 1L;
 
@@ -76,11 +78,11 @@ public class User implements Serializable {
         this.age = age;
     }
 
-    public Long getTel() {
+    public String getTel() {
         return tel;
     }
 
-    public void setTel(Long tel) {
+    public void setTel(String tel) {
         this.tel = tel;
     }
 
@@ -178,5 +180,13 @@ public class User implements Serializable {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public Integer getPswErrNum() {
+        return pswErrNum;
+    }
+
+    public void setPswErrNum(Integer pswErrNum) {
+        this.pswErrNum = pswErrNum;
     }
 }

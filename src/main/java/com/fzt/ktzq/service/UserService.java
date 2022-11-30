@@ -5,6 +5,7 @@ import com.fzt.ktzq.mapper.UserMapper;
 import com.fzt.ktzq.util.StringUtilsFzt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -49,11 +50,11 @@ public class UserService {
 
     /**
      * 通过id查询用户
-     * @param userId
+     * @param user
      * @return
      */
-    public User selectUser(String userId){
-        return userMapper.selectByPrimaryKey(userId);
+    public List<User> selectUser(User user){
+        return userMapper.list(user);
     }
 
     /**
@@ -85,5 +86,14 @@ public class UserService {
             return list.get(0);
         }
         return null;
+    }
+
+    /**
+     * 修改用户
+     * @param userSelect
+     */
+    @Transactional
+    public void updateUser(User userSelect){
+        userMapper.updateByPrimaryKeySelective(userSelect);
     }
 }
