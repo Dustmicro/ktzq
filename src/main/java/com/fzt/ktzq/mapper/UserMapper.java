@@ -16,20 +16,22 @@ public interface UserMapper extends Mapper<User> {
 
     int insertSelective(User record);
 
-    User selectByPrimaryKey(String userId);
+//    User selectByPrimaryKey(String userId);
 
-    int updateByPrimaryKeySelective(User record);
+//    int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
 
     User find(User record);
 
-    List<User> list(User record);
+//    List<User> list(User record);
 
-    @Select("select * from u_user where user_name = #{userName}")
-    List<User> findUserByUserName(@Param("userName") String userName);
+    @Select("select * from u_user where account = #{account}")
+    List<User> findUserByUserName(@Param("account") String account);
 
     Page<User> pageList(User record);
 
     List<User> all();
+
+//    String selectOne(String userSelect);
 }

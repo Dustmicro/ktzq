@@ -2,7 +2,6 @@ package com.fzt.ktzq.service;
 
 import com.fzt.ktzq.dao.User;
 import com.fzt.ktzq.mapper.UserMapper;
-import com.fzt.ktzq.util.StringUtilsFzt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,11 +49,11 @@ public class UserService {
 
     /**
      * 通过id查询用户
-     * @param user
+     * @param userSelect
      * @return
      */
-    public List<User> selectUser(User user){
-        return userMapper.list(user);
+    public User selectUser(User userSelect){
+        return userMapper.selectOne(userSelect);
     }
 
     /**
@@ -75,25 +74,32 @@ public class UserService {
 
     /**
      * 通过用户名查询用户
-     * @param username
+     * @param user
      * @return
      */
-    public User findUserByUserName(String username){
-        User user = new User();
-        user.setUserName(username);
-        List<User> list = userMapper.findUserByUserName(user.getUserName());
-        if (StringUtilsFzt.isNotEmpty(list)){
+    public User findUserByUserName(String user){
+        User userName = new User();
+        userName.setAccount(user);
+        List<User> list = userMapper.findUserByUserName(userName.getAccount());
+        if (list != null){
             return list.get(0);
+        } else {
+            return null;
         }
-        return null;
     }
 
     /**
      * 修改用户
      * @param userSelect
      */
-    @Transactional
-    public void updateUser(User userSelect){
-        userMapper.updateByPrimaryKeySelective(userSelect);
+    public boolean updateUser(User userSelect){
+        boolean flag = false;
+        try {
+            userMapper.updateByPrimaryKeySelective(userSelect);
+            flag = true;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
     }
 }

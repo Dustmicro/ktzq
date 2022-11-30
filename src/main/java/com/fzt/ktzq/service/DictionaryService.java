@@ -26,7 +26,7 @@ import java.util.List;
 public class DictionaryService {
     private static final Logger logger = LoggerFactory.getLogger(DictionaryService.class);
 
-    @Autowired
+    @Autowired(required = false)
     private DictionaryMapper dictionaryMapper;
 
     /**

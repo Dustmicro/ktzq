@@ -28,7 +28,7 @@ public class User implements Serializable {
 
     private Double size;
 
-    private Long account;
+    private String account;
 
     private String password;
 
@@ -94,11 +94,11 @@ public class User implements Serializable {
         this.size = size;
     }
 
-    public Long getAccount() {
+    public String getAccount() {
         return account;
     }
 
-    public void setAccount(Long account) {
+    public void setAccount(String account) {
         this.account = account;
     }
 

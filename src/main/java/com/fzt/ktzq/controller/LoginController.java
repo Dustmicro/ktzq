@@ -35,6 +35,9 @@ public class LoginController{
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     private static final String TEL_NOT_NULL = "电话不可为空！！";
     private static final String USER_PWD_ERR = "账号或密码错误！！";
+
+    private static final String ACCOUNT = "account";
+
     private static final String USERNAME = "userName";
     private static final String SESSION_ID = "sessionId";
     private static final String VALIDATE_NUMB = "_validateNumb";
@@ -69,8 +72,8 @@ public class LoginController{
         logger.info("用户登录，请求开始，用户名name,{}", reqMap.get(USERNAME));
         User dbUser = userService.findUserByUserName(reqMap.get(USERNAME));
         if (dbUser != null) {
-            Integer status = dbUser.getStatusCd();
-            if (!"1".equals(status)) {
+//            Integer status = dbUser.getStatusCd();
+            if ("0".equals(dbUser.getStatusCd())) {
                 return RestResult.failure("-1", "用户状态异常，请联系管理员");
             }
             String psw = dbUser.getPassword();
@@ -93,16 +96,17 @@ public class LoginController{
 //        Assert.hasLength(user.getVerifyCode(), "验证码不可为空！！");
         if (!user.getPassword().equals(user.getPasswordRept())){
             logger.info("两次密码不一致，请重新输入");
-            RestResult.failure("-1", "两次密码不一致，请重新输入");
+            return RestResult.failure("-1", "两次密码不一致，请重新输入");
         }
         User userSelect = new User();
         userSelect.setTel(user.getTel());
-        List<User> list = userService.selectUser(userSelect);
-        if (StringUtilsFzt.isEmpty(list)){
-            logger.info("此电话的用户未找到！！");
-            RestResult.failure("-1", "此用户不存在");
-        }
-        userSelect = list.get(0);
+//        User list = userService.selectUser(userSelect);
+//        if (list == null){
+//            logger.info("此电话的用户未找到！！");
+//            return RestResult.failure("-1", "此用户不存在");
+//        }
+//        userSelect = list.get(0);
+        userSelect.setUserId(user.getUserId());
         userSelect.setPassword(user.getPassword());
         userSelect.setUpdateTime(new Date());
         userSelect.setPswErrNum(0);
