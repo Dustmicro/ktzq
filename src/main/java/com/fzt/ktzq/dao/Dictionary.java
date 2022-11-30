@@ -7,6 +7,7 @@ import tk.mybatis.mapper.annotation.KeySql;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -23,6 +24,7 @@ public class Dictionary implements Serializable {
 
     private String dicTypeId;
 
+    @Transient
     private String statusCd;
 
     private Date updateTime;

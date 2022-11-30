@@ -34,7 +34,7 @@ public class CommService {
             Dictionary db = new Dictionary();
             db.setDicTypeId(domain);
             db.setDicTypeId(key);
-            List<Dictionary> list = dictionaryMapper.list(db);
+            List<Dictionary> list = dictionaryMapper.selectByExample(db);
             if (StringUtilsFzt.isNotEmpty(list) && list.size() == 1){
                 Dictionary dictionary = list.get(0);
                 MappingCache.setValue(dictionary);

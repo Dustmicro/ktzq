@@ -17,7 +17,8 @@ spring:
     pathmatch:
       matching-strategy: ant_path_matcher
 mybatis-plus:
-  config-location: classpath:mapping/*Mapper.xml
+  config-location: classpath:mapping/*.xml
+  type-aliases-package: com.fzt.ktzq.dao
 
 
 

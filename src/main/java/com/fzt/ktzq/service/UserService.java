@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class UserService {
 
-    @Autowired
+    @Autowired(required = false)
     private UserMapper userMapper;
 
     public List<User>findAll(){
@@ -81,7 +81,7 @@ public class UserService {
     public User findUserByUserName(String username){
         User user = new User();
         user.setUserName(username);
-        List<User> list = userMapper.findUserByUserName(user);
+        List<User> list = userMapper.findUserByUserName(user.getUserName());
         if (StringUtilsFzt.isNotEmpty(list)){
             return list.get(0);
         }
