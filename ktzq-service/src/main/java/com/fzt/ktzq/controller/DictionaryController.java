@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,22 +36,20 @@ public class DictionaryController {
     /**
      * 分页查询字典值
      * @param dictionary
-     * @param page
-     * @param size
      * @return
      * @throws ServiceException
      */
     @RequestMapping(value = "/selectDictionary", method = RequestMethod.POST)
-    public List<Dictionary> selectDictionary(@RequestBody Dictionary dictionary, Integer page, Integer size) throws ServiceException{
+    public List<Dictionary> selectDictionary(@RequestBody Dictionary dictionary) throws ServiceException{
         logger.info("分页查询字典值服务开始，请求参数，{}", dictionary);
-        List<Dictionary> list = new ArrayList<>();
         try {
-            list = dictionaryService.selectDictionary(dictionary, page, size);
+            List<Dictionary> list = dictionaryService.selectDictionary(dictionary);
+            return list;
         } catch (Exception e){
             logger.info("查询字典值异常");
             throw new ServiceException(CommConstant.ERROR_CODE, "查询字典值异常");
         }
-        return list;
+
     }
 
     /**

@@ -76,14 +76,18 @@ public class DictionaryService {
     }
 
     /**
-     * 根据条件分页查询字典值
+     * 根据条件查询字典值
      * @param dictionary
      * @return
      * @throws ServiceException
      */
-    public List<Dictionary> selectDictionary(Dictionary dictionary, Integer page, Integer size) {
-        PageHelper.startPage(page, size);
-        return dictionaryMapper.selectByExample(dictionary);
+    public List<Dictionary> selectDictionary(Dictionary dictionary) {
+//        Example example = new Example(Dictionary.class);
+//        Example.Criteria criteria = example.createCriteria();
+//        //按名字模糊查询
+//        criteria.andLike("dic_name", "%" + dictionary.getDicName() + "%");
+        List<Dictionary> list = dictionaryMapper.select(dictionary);
+        return list;
     }
 
     /**
@@ -112,21 +116,26 @@ public class DictionaryService {
     public Example createExample(Dictionary dictionary){
         Example example = new Example(Dictionary.class);
         Example.Criteria criteria = example.createCriteria();
+        //按名字模糊查询
+        criteria.andLike("dic_name", "%" + dictionary.getDicName() + "%");
+        //按id正排序
+        example.setOrderByClause("dic_id");
         /***
          * Example 是自定义条件对象
          * criteria  是条件构造器
          * 上面形式 固定写法
          */
-        if (dictionary != null){
-            /***
-             * criteria 条件构造
-             * property  数据库的属性名称
-             * 第二个，传入sql语句的属性
-             */
-            if (!StringUtilsFzt.isEmpty(dictionary.getDicTypeId())){
-                criteria.andLike("name","%" + dictionary.getDicTypeId() + "%");
-            }
-        }
+//        if (dictionary != null){
+//            /***
+//             * criteria 条件构造
+//             * property  数据库的属性名称
+//             * 第二个，传入sql语句的属性
+//             */
+//            if (!StringUtilsFzt.isEmpty(dictionary.getDicName())){
+//                criteria.andLike("dicName","%" + dictionary.getDicName() + "%");
+//            }
+//        }
         return example;
     }
+
 }
