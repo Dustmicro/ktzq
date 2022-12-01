@@ -8,17 +8,30 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ktzq_local" />
-        <module name="ktzq" />
+        <module name="ktzq-dao" />
+        <module name="ktzq-mapper" />
+        <module name="ktzq-service" />
+        <module name="ktzq-comm" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="ktzq" target="1.8" />
+      <module name="ktzq-comm" target="1.8" />
+      <module name="ktzq-common" target="1.8" />
+      <module name="ktzq-dao" target="1.8" />
+      <module name="ktzq-mapper" target="1.8" />
+      <module name="ktzq-service" target="1.8" />
       <module name="ktzq_local" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ktzq" options="-parameters" />
+      <module name="ktzq-comm" options="-parameters" />
+      <module name="ktzq-common" options="-parameters" />
+      <module name="ktzq-dao" options="-parameters" />
+      <module name="ktzq-mapper" options="-parameters" />
+      <module name="ktzq-service" options="-parameters" />
       <module name="ktzq_local" options="-parameters" />
     </option>
   </component>

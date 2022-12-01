@@ -4,6 +4,10 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/ktzq-dao/pom.xml" />
+        <option value="$PROJECT_DIR$/ktzq-service/pom.xml" />
+        <option value="$PROJECT_DIR$/ktzq-mapper/pom.xml" />
+        <option value="$PROJECT_DIR$/ktzq-comm/pom.xml" />
       </list>
     </option>
   </component>

@@ -3,6 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ktzq.iml" filepath="$PROJECT_DIR$/ktzq.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ktzq-comm/ktzq-comm.iml" filepath="$PROJECT_DIR$/ktzq-comm/ktzq-comm.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ktzq-dao/ktzq-dao.iml" filepath="$PROJECT_DIR$/ktzq-dao/ktzq-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ktzq-mapper/ktzq-mapper.iml" filepath="$PROJECT_DIR$/ktzq-mapper/ktzq-mapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ktzq-service/ktzq-service.iml" filepath="$PROJECT_DIR$/ktzq-service/ktzq-service.iml" />
     </modules>
   </component>
 </project>
