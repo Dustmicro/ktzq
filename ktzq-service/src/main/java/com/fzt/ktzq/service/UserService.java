@@ -4,6 +4,7 @@ import com.fzt.ktzq.dao.User;
 import com.fzt.ktzq.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -47,12 +48,31 @@ public class UserService {
     }
 
     /**
+     * 用户注册
+     * @param user
+     * @return
+     */
+    @Transactional
+    public int insertUser(User user){
+        return userMapper.insertSelective(user);
+    }
+
+    /**
      * 通过id查询用户
      * @param userSelect
      * @return
      */
     public User selectUser(User userSelect){
         return userMapper.selectOne(userSelect);
+    }
+
+    /**
+     * 注册用户时校验用
+     * @param user
+     * @return
+     */
+    public List<User> checkUser(User user){
+        return userMapper.select(user);
     }
 
     /**

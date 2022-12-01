@@ -1,11 +1,15 @@
 package com.fzt.ktzq.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.fzt.ktzq.common.appmid.parser.ServiceException;
 import com.fzt.ktzq.dao.ForgetPswVo;
 import com.fzt.ktzq.dao.RestResult;
 import com.fzt.ktzq.dao.User;
 import com.fzt.ktzq.service.UserService;
+import com.fzt.ktzq.util.AuthUserContext;
 import com.fzt.ktzq.util.CommConstant;
+import com.fzt.ktzq.util.StringUtilsFzt;
+import com.fzt.ktzq.util.TokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -20,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -77,7 +82,19 @@ public class LoginController{
             if (!psw.equals(reqMap.get("password"))){
                 return RestResult.failure("-1", USER_PWD_ERR);
             }
-            return RestResult.success("登录成功！！");
+            //生成token
+            String token = TokenUtil.getToken(dbUser);
+            rsp.setHeader("token", token);
+
+            Map<String, Object> map = new HashMap<>();
+            dbUser.setPassword(null);
+            map.put("user", dbUser);
+            String sessionId = req.getSession().getId();
+            rsp.setHeader(SESSION_ID, sessionId);
+            //返回给客户端保存
+            req.getSession().setAttribute("userId", dbUser.getUserId());
+            AuthUserContext.remove();
+            return RestResult.success(map);
         }else {
             return RestResult.failure("-1", USER_PWD_ERR);
         }
@@ -110,5 +127,55 @@ public class LoginController{
         userService.updateUser(userSelect);
         logger.info("密码设置成功");
         return RestResult.success(JSON.toJSONString("密码设置成功"));
+    }
+
+    @ApiOperation(value = "注册")
+    @PostMapping(value = "/register", produces = "application/json; charset=utf-8")
+    public RestResult<Object> register(@RequestBody User user) throws ServiceException{
+        logger.info("注册服务开始，请求参数，{}", user);
+        Assert.isNull(user.getUserName(), "用户名不可为空！！");
+        Assert.isNull(user.getPassword(), "密码不可为空！！");
+        Assert.isNull(user.getTel(), TEL_NOT_NULL);
+        Assert.isNull(user.geteMail(), "邮箱不可为空！！");
+
+        if (!user.getPassword().equals(user.getPasswordRept())){
+            logger.info("两次密码不一致！！");
+            return RestResult.failure("-1", "两次密码不一致");
+        }
+
+        //校验用户名
+        User dbUser = new User();
+        dbUser.setUserName(user.getUserName());
+        List<User> list = userService.checkUser(dbUser);
+        if (StringUtilsFzt.isNotEmpty(list)){
+            logger.info("该用户名已被占用");
+            return RestResult.failure(CommConstant.ERROR_CODE, "该用户名已被占用");
+        }
+
+        //校验邮箱
+        dbUser.setUserName(null);
+        dbUser.seteMail(user.geteMail());
+        List<User> Email = userService.checkUser(dbUser);
+        if (StringUtilsFzt.isNotEmpty(Email)){
+            logger.info("该邮箱已被占用");
+            return RestResult.failure(CommConstant.ERROR_CODE, "该邮箱已被占用");
+        }
+
+        //校验手机号
+        dbUser.seteMail(null);
+        dbUser.setTel(user.getTel());
+        List<User> tel = userService.checkUser(dbUser);
+        if (StringUtilsFzt.isNotEmpty(tel)){
+            logger.info("该手机号已被占用");
+            return RestResult.failure(CommConstant.ERROR_CODE, "改手机号已被占用");
+        }
+        int insertUser = userService.insertUser(dbUser);
+        if (insertUser > 0){
+            logger.info("注册成功！！");
+            return RestResult.success(JSON.toJSONString("注册成功！！"));
+        } else {
+            logger.info("注册失败！！");
+            return RestResult.failure(CommConstant.ERROR_CODE, "注册失败！！");
+        }
     }
 }

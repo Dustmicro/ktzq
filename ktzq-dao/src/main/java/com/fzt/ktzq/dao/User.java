@@ -7,6 +7,7 @@ import tk.mybatis.mapper.annotation.KeySql;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -51,6 +52,9 @@ public class User implements Serializable {
     private Date updateTime;
 
     private Integer pswErrNum;
+
+    @Transient
+    private String passwordRept;
 
     private static final long serialVersionUID = 1L;
 

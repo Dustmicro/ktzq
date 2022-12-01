@@ -15,6 +15,11 @@ public class TokenUtil {
     //设置过期时间
     private static Long expireTime = null;
 
+    /**
+     * 生成token
+     * @param user
+     * @return
+     */
     public static String getToken(User user){
         setExpireTime();
         String token = "";
