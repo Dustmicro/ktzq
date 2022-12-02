@@ -44,5 +44,8 @@ public class College implements Serializable {
     @Transient
     private List<Integer> addressList;
 
+    @Transient
+    private List<College> acctList;
+
     private static final long serialVersionUID = 1L;
 }

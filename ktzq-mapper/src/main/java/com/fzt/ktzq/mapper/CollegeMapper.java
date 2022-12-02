@@ -1,6 +1,8 @@
 package com.fzt.ktzq.mapper;
 
 import com.fzt.ktzq.dao.College;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import tk.mybatis.mapper.common.Mapper;
 
 
@@ -17,7 +19,8 @@ public interface CollegeMapper extends Mapper<College> {
 //
 //    int updateByPrimaryKey(College record);
 //
-//    College find(College record);
+      @Select("select * from u_college where college_name = #{collegeName}")
+      College checkName(@Param("collegeName") College college);
 //
 //    List<College> list(College record);
 //

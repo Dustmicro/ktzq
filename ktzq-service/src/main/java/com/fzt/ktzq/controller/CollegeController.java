@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 球队服务
@@ -61,6 +58,12 @@ public class CollegeController {
         return map;
     }
 
+    /**
+     * 新增球队
+     * @param college
+     * @return
+     * @throws ServiceException
+     */
     @RequestMapping(value = "/addCollege", method = RequestMethod.POST)
     public RestResult<Object> addCollege(@RequestBody College college) throws ServiceException{
         logger.info("新增球队服务开始，请求参数，{}", college);
@@ -77,9 +80,87 @@ public class CollegeController {
                 logger.info("球队名称重复，请重新输入");
                 throw new ServiceException(CommConstant.ERROR_CODE, "球队名称重复，请重新输入");
             }
-//            List<Integer>
+            List<Integer> addressList = college.getAddressList();
+            List<College> acctList = college.getAcctList();
+            StringBuilder bd = new StringBuilder();
+            if (addressList != null){
+                for (Integer code : addressList){
+                    bd.append(code).append(",");
+                }
+                bd.deleteCharAt(bd.length() - 1);
+            }
+            college.setAereNum(college.getAereNum());
+            college.setAddress(bd.toString());
+            college.setCreateTime(new Date());
+            collegeService.addCollege(college);
+        } catch (ServiceException e){
+            logger.info("球队名称重复，请重新输入");
+            throw new ServiceException(CommConstant.ERROR_CODE, e.getDesc());
         } catch (Exception e){
-
+            logger.info("新增球队出现异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, "新增球队出现异常");
         }
+        return RestResult.success(CommConstant.SUCCESS);
+    }
+
+    /**
+     * 修改球队服务
+     * @param college
+     * @return
+     * @throws ServiceException
+     */
+    @RequestMapping(value = "/updateCollege", method = RequestMethod.POST)
+    public RestResult<Object> updateCollege(@RequestBody College college) throws ServiceException{
+        logger.info("修改部门服务开始，请求参数，{}", college);
+        Assert.notNull(college.getCollegeName(), "球队名称不可为空");
+        try {
+            College college1 = collegeService.find(college.getId());
+            if (college1 == null){
+                throw new ServiceException(CommConstant.ERROR_CODE, "不存在该球队信息");
+            }
+            College param = new College();
+            param.setCollegeName(college.getCollegeName());
+            College checkName = collegeService.checkName(param);
+            if (!college1.getCollegeName().equals(college.getCollegeName()) && checkName != null){
+                throw new ServiceException(CommConstant.ERROR_CODE, "已有球队名称为" + param.getCollegeName() + "的小区");
+            }
+            if (college.getAddressList() != null){
+                List<Integer> addressList = college.getAddressList();
+                StringBuilder bd = new StringBuilder();
+                if (addressList != null){
+                    for (Integer code : addressList){
+                        bd.append(code).append(",");
+                    }
+                    bd.deleteCharAt(bd.length() - 1);
+                }
+                college.setAddress(bd.toString());
+            }
+            collegeService.updateCollege(college);
+        } catch (ServiceException e){
+            logger.info("修改球队异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, e.getDesc());
+        } catch (Exception e){
+            logger.info("修改球队异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, "修改球队异常");
+        }
+        return RestResult.success(CommConstant.SUCCESS);
+    }
+
+    /**
+     * 删除球队服务
+     * @param college
+     * @return
+     * @throws ServiceException
+     */
+    @RequestMapping(value = "/deleteCollege", method = RequestMethod.POST)
+    public RestResult<Object> deleteCollege(@RequestBody College college) throws ServiceException{
+        logger.info("修改球队服务开始，请求参数，{}", college);
+        try {
+            collegeService.deleteCollege(college);
+        } catch (Exception e){
+            logger.info("删除球队异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, "删除球队异常");
+        }
+        return RestResult.success(CommConstant.SUCCESS);
     }
 }
