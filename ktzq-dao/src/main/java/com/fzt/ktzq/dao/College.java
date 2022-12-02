@@ -3,37 +3,25 @@ package com.fzt.ktzq.dao;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import tk.mybatis.mapper.annotation.KeySql;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-
+/**
+ * 球队实体类
+ * @author 黄弋峰  2022/12/2
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "u_user")
-public class User implements Serializable {
+@Table(name = "u_college")
+public class College implements Serializable {
     @Id
-    @KeySql(useGeneratedKeys = true)
-    private String userId;
-
-    private String userName;
-
-    private Integer age;
-
-    private String tel;
-
-    private Double size;
-
-    private String account;
-
-    private String password;
-
-    private Integer permissions;
+    private Integer id;
 
     private String collegeNum;
 
@@ -45,20 +33,16 @@ public class User implements Serializable {
 
     private String address;
 
-    private String eMail;
+    private String tel;
 
-    private String uMark;
-
-    private Integer statusCd;
+    private String addressxq;
 
     private Date createTime;
 
-    private Date updateTime;
-
-    private Integer pswErrNum;
+    private String statusCd;
 
     @Transient
-    private String passwordRept;
+    private List<Integer> addressList;
 
     private static final long serialVersionUID = 1L;
 }

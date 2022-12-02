@@ -23,4 +23,6 @@ public class CommConstant {
     /**成功**/
     public static final String SUCCESS = "成功";
 
+    public static final String DATA = "data";
+
 }
