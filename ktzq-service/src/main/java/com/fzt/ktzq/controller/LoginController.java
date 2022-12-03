@@ -136,7 +136,7 @@ public class LoginController{
         Assert.isNull(user.getUserName(), "用户名不可为空！！");
         Assert.isNull(user.getPassword(), "密码不可为空！！");
         Assert.isNull(user.getTel(), TEL_NOT_NULL);
-        Assert.isNull(user.geteMail(), "邮箱不可为空！！");
+        Assert.isNull(user.getEMail(), "邮箱不可为空！！");
 
         if (!user.getPassword().equals(user.getPasswordRept())){
             logger.info("两次密码不一致！！");
@@ -154,7 +154,7 @@ public class LoginController{
 
         //校验邮箱
         dbUser.setUserName(null);
-        dbUser.seteMail(user.geteMail());
+        dbUser.setEMail(user.getEMail());
         List<User> Email = userService.checkUser(dbUser);
         if (StringUtilsFzt.isNotEmpty(Email)){
             logger.info("该邮箱已被占用");
@@ -162,7 +162,7 @@ public class LoginController{
         }
 
         //校验手机号
-        dbUser.seteMail(null);
+        dbUser.setEMail(null);
         dbUser.setTel(user.getTel());
         List<User> tel = userService.checkUser(dbUser);
         if (StringUtilsFzt.isNotEmpty(tel)){
