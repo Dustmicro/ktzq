@@ -10,6 +10,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fzt.ktzq.config.FastBootConfig;
 import com.fzt.ktzq.dao.RestResult;
 import com.fzt.ktzq.service.UserService;
+import com.fzt.ktzq.util.AuthUserContext;
 import com.fzt.ktzq.util.TokenUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -18,12 +19,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ * 拦截器
+ * @author 黄弋峰  2022/12/4
+ */
 @Component
 public class LoginHandlerInterceptor implements HandlerInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(LoginHandlerInterceptor.class);
@@ -118,5 +124,35 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
             return;
         }
         writer.write(JSON.toJSONString(restResult));
+    }
+
+    /**
+     * 2、在调用控制器方法后，拦截（生成视图之前）
+     * @param request
+     * @param response
+     * @param handler
+     * @param modelAndView
+     * @throws Exception
+     */
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception{
+        logger.info("---------------------进入拦截器了，请求处理后，渲染ModelAndView前调用---------------------");
+        //删除用户
+        AuthUserContext.remove();
+        HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
+    }
+
+    /**
+     * 3、生成视图之后(后台所有逻辑都完成后)
+     * @param request
+     * @param response
+     * @param handler
+     * @param ex
+     * @throws Exception
+     */
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception{
+        logger.info("---------------------进入拦截器了，渲染ModelAndView后调用---------------------");
+        HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
     }
 }

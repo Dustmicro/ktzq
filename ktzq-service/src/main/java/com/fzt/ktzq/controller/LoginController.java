@@ -32,7 +32,7 @@ import java.util.Map;
  * @author 黄弋峰  2022/11/29
  */
 @RestController
-@Api//该注解有引入的依赖
+@Api("用户模块")//该注解有引入的依赖
 public class LoginController{
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
     private static final String TEL_NOT_NULL = "电话不可为空！！";

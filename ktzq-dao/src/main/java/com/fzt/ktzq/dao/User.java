@@ -27,7 +27,7 @@ public class User implements Serializable {
 
     private String tel;
 
-    private Double size;
+    private Integer sex;
 
     private String account;
 
