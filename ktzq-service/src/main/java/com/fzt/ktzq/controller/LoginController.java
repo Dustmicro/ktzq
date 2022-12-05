@@ -5,6 +5,8 @@ import com.fzt.ktzq.common.appmid.parser.ServiceException;
 import com.fzt.ktzq.dao.ForgetPswVo;
 import com.fzt.ktzq.dao.RestResult;
 import com.fzt.ktzq.dao.User;
+import com.fzt.ktzq.redis.MappingCache;
+import com.fzt.ktzq.service.CommService;
 import com.fzt.ktzq.service.UserService;
 import com.fzt.ktzq.util.AuthUserContext;
 import com.fzt.ktzq.util.CommConstant;
@@ -47,8 +49,8 @@ public class LoginController{
     @Autowired
     UserService userService;
 
-//    @Autowired
-//    CommService commService;
+    @Autowired(required = false)
+    CommService commService;
 
     @ApiOperation(value = "用户登录前获取令牌")
     @PostMapping(value = "/preLogin", produces = "application/json; charset=utf-8")
@@ -82,6 +84,12 @@ public class LoginController{
             if (!psw.equals(reqMap.get("password"))){
                 return RestResult.failure("-1", USER_PWD_ERR);
             }
+            //如果为空，则将密码错误次数置0
+            Integer passwordErrNum = dbUser.getPswErrNum();
+            if (passwordErrNum == null){
+                dbUser.setPswErrNum(0);
+            }
+
             //生成token
             String token = TokenUtil.getToken(dbUser);
             rsp.setHeader("token", token);
@@ -176,6 +184,25 @@ public class LoginController{
         } else {
             logger.info("注册失败！！");
             return RestResult.failure(CommConstant.ERROR_CODE, "注册失败！！");
+        }
+    }
+
+    /**
+     * 校验密码
+     * @param dbUser
+     * @param passwordErrNum
+     * @param reqMap
+     * @param req
+     * @param rsp
+     * @return
+     */
+    private RestResult<Object> checkPwd(User dbUser, Integer passwordErrNum, Map<String, String> reqMap, HttpServletRequest req, HttpServletResponse rsp ) {
+        String pwdErrNumLock = commService.getDictionaryValue(MappingCache.COMMON_DOMAIN, "pwdErrNumLock");
+        Integer pwdErrNumLockValue = Integer.parseInt(pwdErrNumLock);
+        if (passwordErrNum >= pwdErrNumLockValue){
+            return RestResult.failure("-1","用户错误次数已超限制，用户已锁定，请联系管理员！！");
+        } else {
+            return null;
         }
     }
 }

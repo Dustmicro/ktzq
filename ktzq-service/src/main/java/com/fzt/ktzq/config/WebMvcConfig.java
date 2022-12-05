@@ -2,6 +2,7 @@ package com.fzt.ktzq.config;
 
 import com.fzt.ktzq.interceptor.LoginHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -9,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * 拦截器配置类
  * @author 黄弋峰  2022/12/4
  */
+@Component
 public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired

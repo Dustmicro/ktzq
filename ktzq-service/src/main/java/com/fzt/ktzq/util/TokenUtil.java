@@ -21,13 +21,13 @@ public class TokenUtil {
      * @return
      */
     public static String getToken(User user){
-        setExpireTime();
+//        setExpireTime();
         String token = "";
-        Date date = new Date();
-        date.setTime(System.currentTimeMillis() + expireTime);
+//        Date date = new Date();
+//        date.setTime(System.currentTimeMillis() + expireTime);
         token = JWT.create().withAudience(String.valueOf(user.getUserId()))
                 .withClaim(OWNER_FLAG, "0")
-                .withExpiresAt(date)
+//                .withExpiresAt(date)
                 .sign(Algorithm.HMAC256(String.valueOf(user.getUserId())));
         return token;
     }

@@ -99,7 +99,7 @@ public class UserService {
     public User findUserByUserName(String user){
         User userName = new User();
         userName.setAccount(user);
-        List<User> list = userMapper.findUserByUserName(userName.getAccount());
+        List<User> list = userMapper.select(userName);
         if (list != null){
             return list.get(0);
         } else {
