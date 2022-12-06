@@ -1,9 +1,11 @@
 package com.fzt.ktzq.controller;
 
 import com.fzt.ktzq.common.appmid.parser.ServiceException;
+import com.fzt.ktzq.dao.College;
 import com.fzt.ktzq.dao.Program;
 import com.fzt.ktzq.dao.RestResult;
 import com.fzt.ktzq.dao.User;
+import com.fzt.ktzq.service.CollegeService;
 import com.fzt.ktzq.service.ProgramService;
 import com.fzt.ktzq.util.AuthUserContext;
 import com.fzt.ktzq.util.CommConstant;
@@ -11,10 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,11 +28,15 @@ public class ProgramController {
     @Autowired
     ProgramService programService;
 
+    @Autowired
+    CollegeService collegeService;
+
     /**
      * 查询所有日程
      * @return
      */
-    public List<Program> selectProgram(){
+    @GetMapping("/selectProgramAll")
+    public List<Program> selectProgramAll(){
         return programService.selectProgramAll();
     }
 
@@ -53,6 +56,13 @@ public class ProgramController {
 //        Assert.notNull(program.getCreateUser(), "创建人不可为空");
         Assert.notNull(program.getTel(), "创建人电话不可为空");
         try {
+            //如果球队编号不为空
+            if (user.getAereNum() != null){
+                program.setParentNum(user.getAereNum());
+            } else if (user.getCollegeId() != null) {//如果区域编号不为空
+                College list = collegeService.find(user.getCollegeId());
+                program.setParentNum(list.getCollegeNum());
+            }
             program.setCreateUser(user.getUserName());
             programService.addProgram(program);
         } catch (Exception e){

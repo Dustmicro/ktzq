@@ -41,9 +41,9 @@ public class CollegeController {
         logger.info("查询球队服务开始");
         List<College> colleges = new ArrayList<>();
         try {
-            if (user.getCollegeNum() != null){
-                logger.info("学院id，{}", user.getCollegeNum());
-                colleges = collegeService.selectByCollegeNum(user.getCollegeNum());
+            if (user.getCollegeId() != null){
+                logger.info("学院id，{}", user.getCollegeId());
+                colleges = collegeService.selectByCollegeNum(user.getCollegeId());
             }
             if (user.getAereNum() != null){
                 logger.info("区域id，{}", user.getAereNum());
@@ -114,7 +114,7 @@ public class CollegeController {
         logger.info("修改部门服务开始，请求参数，{}", college);
         Assert.notNull(college.getCollegeName(), "球队名称不可为空");
         try {
-            College college1 = collegeService.find(college.getId());
+            College college1 = collegeService.find(college.getCollegeId());
             if (college1 == null){
                 throw new ServiceException(CommConstant.ERROR_CODE, "不存在该球队信息");
             }

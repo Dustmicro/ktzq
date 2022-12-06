@@ -21,13 +21,20 @@ public class TokenUtil {
      * @return
      */
     public static String getToken(User user){
-        setExpireTime();
-        String token = "";
-        Date date = new Date();
-        date.setTime(System.currentTimeMillis() + expireTime);
-        token = JWT.create().withAudience(String.valueOf(user.getUserId()))
-                .withClaim(OWNER_FLAG, "0")
+//        setExpireTime();
+//        String token = "";
+//        Date date = new Date();
+//        date.setTime(System.currentTimeMillis() + expireTime);
+//        token = JWT.create().withAudience(String.valueOf(user.getUserId()))
+//                .withClaim(OWNER_FLAG, "0")
+//                .sign(Algorithm.HMAC256(String.valueOf(user.getUserId())));
+        //设置有效期时间为30分钟
+        Date date = new Date(System.currentTimeMillis() + 30 * 60 * 1000);
+
+        String token = JWT.create()
                 .withExpiresAt(date)
+                .withAudience(String.valueOf(user.getUserId()))
+                .withClaim(OWNER_FLAG, "0")
                 .sign(Algorithm.HMAC256(String.valueOf(user.getUserId())));
         return token;
     }

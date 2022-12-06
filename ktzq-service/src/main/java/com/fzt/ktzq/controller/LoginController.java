@@ -89,6 +89,7 @@ public class LoginController{
             if (passwordErrNum == null){
                 dbUser.setPswErrNum(0);
             }
+            userService.updateUser(dbUser);
 
             //生成token
             String token = TokenUtil.getToken(dbUser);

@@ -46,12 +46,12 @@ public class CollegeService {
 
     /**
      * 通过学院编号查询学院
-     * @param collegeNum
+     * @param collegeId
      * @return
      */
-    public List<College> selectByCollegeNum(String collegeNum){
+    public List<College> selectByCollegeNum(Integer collegeId){
         College id = new College();
-        id.setCollegeNum(collegeNum);
+        id.setCollegeId(collegeId);
         return collegeMapper.select(id);
     }
 
