@@ -35,7 +35,7 @@ public class User implements Serializable {
 
     private Integer permissions;
 
-    private String collegeNum;
+    private Integer collegeId;
 
     private String collegeName;
 
@@ -59,6 +59,8 @@ public class User implements Serializable {
 
     @Transient
     private String passwordRept;
+
+    private Integer logId;
 
     private static final long serialVersionUID = 1L;
 }

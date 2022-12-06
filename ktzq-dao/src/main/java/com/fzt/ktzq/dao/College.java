@@ -21,7 +21,7 @@ import java.util.List;
 @Table(name = "u_college")
 public class College implements Serializable {
     @Id
-    private Integer id;
+    private Integer collegeId;
 
     private String collegeNum;
 

@@ -8,9 +8,13 @@ import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fzt.ktzq.config.FastBootConfig;
+import com.fzt.ktzq.dao.OperationLog;
 import com.fzt.ktzq.dao.RestResult;
+import com.fzt.ktzq.dao.User;
+import com.fzt.ktzq.service.OperationLogService;
 import com.fzt.ktzq.service.UserService;
 import com.fzt.ktzq.util.AuthUserContext;
+import com.fzt.ktzq.util.StringUtilsFzt;
 import com.fzt.ktzq.util.TokenUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -25,6 +29,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 拦截器
@@ -45,6 +52,9 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 
     @Autowired
     FastBootConfig config;
+
+    @Autowired
+    OperationLogService operationLogService;
 
     @Autowired
     public SqlSession sqlSession;
@@ -87,12 +97,22 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
             return false;
         }
 
+        //判断token
         boolean jugeToken = jugeToken(token, response);
         if (!jugeToken){
             return false;
         }
-        //在这里最好增加一个越权校验并返回结果
-        return true;
+
+        User user = null;
+        user = userService.findUserById(Long.parseLong(userId));
+        boolean needRet = checkTokenUser(user, response);
+        if (!needRet){
+            return false;
+        }
+        //刷新token
+        response.setHeader(TOKEN, TokenUtil.getToken(user));
+
+        return checkAll(response,request,user,userId);
     }
 
     /**
@@ -109,6 +129,78 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
             return false;
         }
         return true;
+    }
+
+    /**
+     *
+     * @param user
+     * @param response
+     * @return
+     */
+    private boolean checkTokenUser(User user, HttpServletResponse response){
+        if (StringUtilsFzt.isNull(user)){
+            writeMsg(response, RestResult.failure("-1", "用户不存在"));
+            return false;
+        }
+        return true;
+    }
+
+    private boolean checkAll(HttpServletResponse response, HttpServletRequest request, User user, String userId){
+        /**在这里可以再添加验证球队是否越权、接口访问是否越权、服务访问是否越权等**/
+        Map<String, Object> retMap = gitServiceId(request);
+        Integer collegeId = (Integer) retMap.get(COLLAGE_ID);
+        String serviceId = (String) retMap.get(SERVICE_ID);
+        //将user设置到AuthUserContext中
+        setUserToHeader(user,collegeId,serviceId);
+        return true;
+    }
+
+    /**
+     * 将请求中的user设置到AuthUserContext中
+     * @param user
+     * @param collegeId
+     * @param serviceId
+     */
+    private void setUserToHeader(User user, Integer collegeId, String serviceId){
+        Integer logId = handlerPre(user,serviceId,collegeId);
+        user.setLogId(logId);
+        AuthUserContext.setUser(user);
+    }
+
+    private Integer handlerPre(User user, String serviceId, Integer collegeId){
+        String userName = user.getUserName();
+        Integer userId = user.getUserId();
+        OperationLog operationLog = new OperationLog();
+        operationLog.setOprateTime(new Date());
+        operationLog.setUserId(userId);
+        operationLog.setUserName(userName);
+        operationLog.setCollegeId(collegeId == null? user.getCollegeId():collegeId);
+        operationLogService.addOperationLog(operationLog);
+        return operationLog.getOperationId();
+    }
+
+    /**
+     * 从请求中获取collegeId和serviceId
+     * @param request
+     * @return
+     */
+    private Map<String, Object> gitServiceId(HttpServletRequest request){
+        /**在这里还可以再添加请求路径，针对文件上传**/
+        return getByAttribute(request);
+    }
+
+    /**
+     * 从属性中获取值
+     * @param request
+     * @return
+     */
+    private Map<String, Object> getByAttribute(HttpServletRequest request){
+        Integer collegeId = (Integer) request.getAttribute(COLLAGE_ID);
+        String serviceId = (String) request.getAttribute(SERVICE_ID);
+        Map<String, Object> retMap = new HashMap<>(3);
+        retMap.put(COLLAGE_ID, collegeId);
+        retMap.put(SERVICE_ID, serviceId);
+        return retMap;
     }
 
     private void writeMsg(HttpServletResponse response, RestResult<Object> restResult){

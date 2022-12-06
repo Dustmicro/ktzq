@@ -59,11 +59,11 @@ public class UserService {
 
     /**
      * 通过id查询用户
-     * @param userSelect
+     * @param userId
      * @return
      */
-    public User selectUser(User userSelect){
-        return userMapper.selectOne(userSelect);
+    public User findUserById(Long userId){
+        return userMapper.selectByPrimaryKey(userId);
     }
 
     /**
