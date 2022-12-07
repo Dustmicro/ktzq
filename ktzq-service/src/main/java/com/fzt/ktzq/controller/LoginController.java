@@ -206,4 +206,16 @@ public class LoginController{
             return null;
         }
     }
+
+    private RestResult<Object> setPswErr( Integer passwordErrNum, User dbUser, Integer pwdErrNumLockValue){
+        //设置用户密码错误次数加1
+        int errTimes = passwordErrNum + 1;
+        dbUser.setPswErrNum(errTimes);
+        userService.updateUser(dbUser);
+        if (errTimes < pwdErrNumLockValue){
+            return RestResult.failure("-1", USER_PWD_ERR);
+        }else {
+            return RestResult.failure("-1", "用户错误次数已超限制，用户已锁定，请联系管理员！！");
+        }
+    }
 }
