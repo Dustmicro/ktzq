@@ -26,6 +26,15 @@ public class ProgramService {
     }
 
     /**
+     * 根据条件查询数据
+     * @param program
+     * @return
+     */
+    public List<Program> selectProgram(Program program){
+        return programMapper.select(program);
+    }
+
+    /**
      * 新增日程
      * @param program
      * @return
@@ -34,6 +43,38 @@ public class ProgramService {
         boolean flag = false;
         try {
             programMapper.insertSelective(program);
+            flag = true;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    /**
+     * 删除日程
+     * @param program
+     * @return
+     */
+    public boolean deleteProgram(Program program){
+        boolean flag = false;
+        try {
+            programMapper.deleteByPrimaryKey(program);
+            flag = true;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    /**
+     * 修改日程
+     * @param program
+     * @return
+     */
+    public boolean updateProgram(Program program){
+        boolean flag = false;
+        try {
+            programMapper.updateByPrimaryKeySelective(program);
             flag = true;
         } catch (Exception e){
             e.printStackTrace();

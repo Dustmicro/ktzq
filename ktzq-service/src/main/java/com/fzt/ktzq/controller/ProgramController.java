@@ -71,4 +71,59 @@ public class ProgramController {
         }
         return RestResult.success(CommConstant.SUCCESS);
     }
+
+    /**
+     * 删除日程
+     * 只有队长、副队长、教练能够对日程进行操作，其余的只能查看
+     * @param program
+     * @return
+     * @throws ServiceException
+     */
+    @RequestMapping(value = "/deleteProgram", method = RequestMethod.POST)
+    public RestResult<Object> deleteProgram(@RequestBody Program program) throws ServiceException{
+        logger.info("删除日程服务开始，请求参数，{}", program);
+        try {
+            programService.deleteProgram(program);
+        } catch (Exception e){
+            logger.info("删除日程异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, "删除日程异常");
+        }
+        return RestResult.success(CommConstant.SUCCESS);
+    }
+
+    /**
+     * 修改日程
+     * @param program
+     * @return
+     * @throws ServiceException
+     */
+    @RequestMapping(value = "/updateProgram", method = RequestMethod.POST)
+    public RestResult<Object> updateProgram(@RequestBody Program program) throws ServiceException{
+        logger.info("修改日程服务开始，请求参数，{}", program);
+        try {
+            programService.updateProgram(program);
+        } catch (Exception e){
+            logger.info("修改日程异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, "修改日程异常");
+        }
+        return RestResult.success(CommConstant.SUCCESS);
+    }
+
+    /**
+     * 根据条件查询日程
+     * @param program
+     * @return
+     * @throws ServiceException
+     */
+    @RequestMapping(value = "/selectProgram", method = RequestMethod.POST)
+    public RestResult<Object> selectProgram(@RequestBody Program program) throws ServiceException{
+        logger.info("查询日程服务开始，请求参数，{}", program);
+        try {
+            programService.selectProgram(program);
+        } catch (Exception e){
+            logger.info("查询日程异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, "查询日程异常");
+        }
+        return RestResult.success(CommConstant.SUCCESS);
+    }
 }
