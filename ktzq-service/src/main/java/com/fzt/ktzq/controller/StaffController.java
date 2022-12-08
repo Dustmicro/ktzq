@@ -93,7 +93,7 @@ public class StaffController {
             User user = new User();
             user.setUserName(staff.getStaffName());
             user.setTel(staff.getTel());
-            user.setPermissions(staff.getStaffRole());
+            user.setRoleId(staff.getStaffRole());
             user.setAddress(staff.getAddress());
             user.setSex(staff.getSex());
             user.setAge(staff.getAge());

@@ -33,7 +33,7 @@ public class User implements Serializable {
 
     private String password;
 
-    private Integer permissions;
+    private Integer roleId;
 
     private Integer collegeId;
 
