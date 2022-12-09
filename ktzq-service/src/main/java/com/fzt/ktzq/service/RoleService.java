@@ -44,22 +44,6 @@ public class RoleService {
     }
 
     /**
-     * 批量插入
-     * @param role
-     * @return
-     */
-    public boolean insertBathRole(List<MenuRoleMapping> list){
-        boolean flag = false;
-        try {
-            roleMapper.insertList(list);
-            flag = true;
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return flag;
-    }
-
-    /**
      * 单条数据查询
      * @param role
      * @return

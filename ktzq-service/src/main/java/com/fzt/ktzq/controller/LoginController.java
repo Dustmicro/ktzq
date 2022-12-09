@@ -11,7 +11,7 @@ import com.fzt.ktzq.service.UserService;
 import com.fzt.ktzq.util.AuthUserContext;
 import com.fzt.ktzq.util.CommConstant;
 import com.fzt.ktzq.util.StringUtilsFzt;
-import com.fzt.ktzq.util.TokenUtil;
+import com.fzt.ktzq.utils.TokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

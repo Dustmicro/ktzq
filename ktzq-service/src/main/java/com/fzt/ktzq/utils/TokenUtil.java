@@ -1,4 +1,4 @@
-package com.fzt.ktzq.util;
+package com.fzt.ktzq.utils;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;

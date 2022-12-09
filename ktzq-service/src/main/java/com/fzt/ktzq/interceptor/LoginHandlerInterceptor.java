@@ -15,7 +15,7 @@ import com.fzt.ktzq.service.OperationLogService;
 import com.fzt.ktzq.service.UserService;
 import com.fzt.ktzq.util.AuthUserContext;
 import com.fzt.ktzq.util.StringUtilsFzt;
-import com.fzt.ktzq.util.TokenUtil;
+import com.fzt.ktzq.utils.TokenUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
