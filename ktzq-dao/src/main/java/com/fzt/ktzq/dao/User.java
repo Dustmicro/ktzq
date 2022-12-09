@@ -49,7 +49,7 @@ public class User implements Serializable {
 
     private String uMark;
 
-    private Integer statusCd;
+    private String statusCd;
 
     private Date createTime;
 

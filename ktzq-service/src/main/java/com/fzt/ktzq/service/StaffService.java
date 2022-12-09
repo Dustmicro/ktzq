@@ -26,12 +26,30 @@ public class StaffService {
     }
 
     /**
-     * 根据条件查询员工
+     * 根据条件查询员工(list)
      * @param staff
      * @return
      */
     public List<Staff> selectStaff(Staff staff){
         return staffMapper.select(staff);
+    }
+
+    /**
+     * 根据条件查询员工(String)
+     * @param staff
+     * @return
+     */
+    public Staff find(Staff staff){
+        return staffMapper.selectOne(staff);
+    }
+
+    /**
+     * 根据id查询员工
+     * @param staffId
+     * @return
+     */
+    public Staff selectStaffById(Integer staffId){
+        return staffMapper.selectByPrimaryKey(staffId);
     }
 
     /**

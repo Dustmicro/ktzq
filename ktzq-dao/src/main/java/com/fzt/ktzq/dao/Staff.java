@@ -32,7 +32,7 @@ public class Staff implements Serializable {
 
     private String parentDept;
 
-    private Integer staffRole;
+    private Integer roleId;
 
     private String email;
 
@@ -42,7 +42,7 @@ public class Staff implements Serializable {
 
     private String address;
 
-    private Integer statusCd;
+    private String statusCd;
 
     @Transient
     private String deptId;

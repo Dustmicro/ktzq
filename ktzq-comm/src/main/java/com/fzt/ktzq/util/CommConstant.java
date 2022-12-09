@@ -15,10 +15,10 @@ public class CommConstant {
     public static final String ERROR_MSG = "系统错误";
 
     /**数据库删除状态对应标志status_cd**/
-    public static final String TATA_DELETE_FLAG = "0";
+    public static final String TATA_DELETE_FLAG = "1";
 
     /**数据库有效状态对应标志status_cd**/
-    public static final String TATA_ACTIV_FLAG = "1";
+    public static final String TATA_ACTIV_FLAG = "0";
 
     /**成功**/
     public static final String SUCCESS = "成功";
