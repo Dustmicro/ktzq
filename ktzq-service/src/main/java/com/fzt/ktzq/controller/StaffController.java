@@ -2,10 +2,7 @@ package com.fzt.ktzq.controller;
 
 import com.fzt.ktzq.common.appmid.parser.ServiceException;
 import com.fzt.ktzq.dao.*;
-import com.fzt.ktzq.service.DeptService;
-import com.fzt.ktzq.service.StaffService;
-import com.fzt.ktzq.service.UserRoleMappingService;
-import com.fzt.ktzq.service.UserService;
+import com.fzt.ktzq.service.*;
 import com.fzt.ktzq.util.AuthUserContext;
 import com.fzt.ktzq.util.CommConstant;
 import com.fzt.ktzq.util.StringUtilsFzt;
@@ -28,15 +25,14 @@ public class StaffController {
 
     @Autowired
     StaffService staffService;
-
     @Autowired
     DeptService deptService;
-
     @Autowired
     UserService userService;
-
     @Autowired
     UserRoleMappingService userRoleMappingService;
+    @Autowired
+    WorkService workService;
 
     /**
      * 查询所有员工数据
@@ -173,7 +169,7 @@ public class StaffController {
     }
 
     /**
-     * 修改员工信息
+     * 删除员工信息
      * @param staff
      * @return
      * @throws ServiceException
@@ -205,6 +201,62 @@ public class StaffController {
         } catch (Exception e){
             logger.info("删除员工信息异常");
             throw new ServiceException(CommConstant.ERROR_CODE, "删除员工信息异常！！");
+        }
+        return CommConstant.SUCCESS;
+    }
+
+    /**
+     * 查询职务
+     * @param work
+     * @return
+     * @throws ServiceException
+     */
+    @RequestMapping(value = "/selectWork", method = RequestMethod.POST)
+    public List<Work> selectWork(@RequestBody Work work) throws ServiceException{
+        logger.info("查询职务开始");
+        List<Work> list = new ArrayList<>();
+        try {
+            list = workService.selectWork(work);
+        } catch (Exception e){
+            logger.info("查询职务异常！！");
+            throw new ServiceException(CommConstant.ERROR_CODE, "查询职务异常！！");
+        }
+        return list;
+    }
+
+    /**
+     * 修改员工密码服务
+     * @param staff
+     * @return
+     * @throws ServiceException
+     */
+    @RequestMapping(value = "/updateStaffPsw", method = RequestMethod.POST)
+    public String updateStaffPsw(@RequestBody Staff staff) throws ServiceException{
+        logger.info("修改员工密码服务开始，请求参数，{}", staff);
+        try {
+            String orPassword = staff.getOrPassword();
+            if (!staff.getNewPassword().equals(staff.getNewPasswordRe())){
+                logger.info("两次密码不一致");
+                throw new ServiceException(CommConstant.ERROR_CODE, "两次密码不一致");
+            }
+            staff = staffService.selectStaffById(staff.getStaffId());
+            User user = userService.findUserById(staff.getUserId());
+            if (!user.getPassword().equals(orPassword)){
+                logger.info("原密码不正确");
+                throw new ServiceException(CommConstant.ERROR_CODE, "原密码不正确");
+            }
+            String regexZs = "[0-9A-Za-z]+";
+            if (!user.getPassword().matches(regexZs) && user.getPasswordRept().length() < 8){
+                logger.info("密码需同时包含数字和字母");
+                throw new ServiceException("-1", "密码需同时包含数字和字母,且长度必须大于等于8位");
+            }
+            user.setPassword(staff.getNewPassword());
+            userService.updateUser(user);
+        } catch (ServiceException e){
+            throw new ServiceException(CommConstant.ERROR_CODE, e.getDesc());
+        } catch (Exception e){
+            logger.info("修改员工密码异常！！");
+            throw new ServiceException(CommConstant.ERROR_CODE, "修改密码异常！！");
         }
         return CommConstant.SUCCESS;
     }

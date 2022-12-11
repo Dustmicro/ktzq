@@ -22,7 +22,7 @@ public class Staff implements Serializable {
     @Id
     private Integer staffId;
 
-    private Integer userId;
+    private Long userId;
 
     private String staffNum;
 
@@ -43,6 +43,18 @@ public class Staff implements Serializable {
     private String address;
 
     private String statusCd;
+
+    @Transient
+    /**原密码**/
+    private String orPassword;
+
+    @Transient
+    /**新密码**/
+    private String newPassword;
+
+    @Transient
+    /**重复密码**/
+    private String newPasswordRe;
 
     @Transient
     private String deptId;
