@@ -17,7 +17,7 @@ public class UserRoleMapping implements Serializable {
     @Id
     private Integer id;
 
-    private Integer userId;
+    private Long userId;
 
     private Integer roleId;
 

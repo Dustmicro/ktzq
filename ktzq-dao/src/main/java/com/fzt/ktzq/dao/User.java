@@ -19,7 +19,7 @@ import java.util.Date;
 public class User implements Serializable {
     @Id
     @KeySql(useGeneratedKeys = true)
-    private Integer userId;
+    private Long userId;
 
     private String userName;
 

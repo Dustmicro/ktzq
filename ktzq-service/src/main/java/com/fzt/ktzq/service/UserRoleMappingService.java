@@ -36,7 +36,7 @@ public class UserRoleMappingService {
      * @param userId
      * @return
      */
-    public boolean deleteByUserId(Integer userId){
+    public boolean deleteByUserId(Long userId){
         boolean flag = false;
         try {
             userRoleMappingMapper.deleteByUserId(userId);

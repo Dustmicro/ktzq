@@ -22,7 +22,7 @@ public interface UserRoleMappingMapper extends Mapper<UserRoleMappingMapper> {
     void updateByUserId(@Param("userId") UserRoleMapping record);
 
     @Delete("delete from user_role_mapping where user_id = #{userId}")
-    void deleteByUserId(@Param("userId") Integer userId);
+    void deleteByUserId(@Param("userId") Long userId);
 //
 //    UserRoleMapping find(UserRoleMapping record);
 //
