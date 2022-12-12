@@ -7,6 +7,7 @@ import com.fzt.ktzq.service.RoleService;
 import com.fzt.ktzq.util.CommConstant;
 import com.fzt.ktzq.util.StringUtilsFzt;
 import com.fzt.ktzq.vo.RoleMenuMappVo;
+import com.github.pagehelper.page.PageMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -89,5 +90,26 @@ public class RoleController {
             throw new ServiceException(CommConstant.ERROR_CODE, "新增角色异常");
         }
         return CommConstant.SUCCESS;
+    }
+
+    /**
+     * 查询角色服务
+     * @param role
+     * @return
+     * @throws ServiceException
+     */
+    @RequestMapping(value = "/selectRole", method = RequestMethod.POST)
+    public List<Role> selectRole(@RequestBody Role role) throws ServiceException{
+        logger.info("开始查询角色，请求参数，{}", role);
+        List<Role> list = new ArrayList<>();
+        try {
+            PageMethod.startPage(role.getPageNo(), role.getPageSize());
+            list = roleService.selectRoleList(role);
+            //在这里添加分页
+            return list;
+        } catch (Exception e){
+            logger.info("查询角色信息异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, "查询角色信息异常");
+        }
     }
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 
 /**
@@ -34,6 +35,12 @@ public class Role implements Serializable {
     private String reserve;
 
     private Integer statusCd;
+
+    @Transient
+    private Integer pageNo;
+
+    @Transient
+    private Integer pageSize;
 
     private static final long serialVersionUID = 1L;
 }
