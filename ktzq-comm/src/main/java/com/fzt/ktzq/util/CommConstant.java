@@ -25,4 +25,6 @@ public class CommConstant {
 
     public static final String DATA = "data";
 
+    public static final String COLLEGE_ID_NOT_NULL = "球队id不能为空";
+
 }
