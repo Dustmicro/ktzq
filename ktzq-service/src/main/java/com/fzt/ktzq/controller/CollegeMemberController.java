@@ -57,4 +57,24 @@ public class CollegeMemberController {
         }
         return list;
     }
+
+    /**
+     * 新增球队成员
+     * @param collegeMember
+     * @return
+     * @throws ServiceException
+     */
+    @RequestMapping(value = "/addMember", method = RequestMethod.POST)
+    public String addMember(@RequestBody CollegeMember collegeMember) throws ServiceException{
+        logger.info("新增球队成员服务开始，请求参数，{}", collegeMember);
+        Assert.notNull(collegeMember.getMemberTypeCd(), "球队成员类型不可为空！！");
+        Assert.notNull(collegeMember.getName(), "姓名不可为空");
+        try {
+            collegeMemberService.addMember(collegeMember);
+            //这里还应该在添加一些数据校验
+        } catch (Exception e){
+            throw new ServiceException(CommConstant.ERROR_CODE, "新增球队成员信息异常");
+        }
+        return CommConstant.SUCCESS;
+    }
 }
