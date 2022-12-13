@@ -51,4 +51,13 @@ public class RoleService {
     public Role selectRoleForId(Role role){
         return roleMapper.selectOne(role);
     }
+
+    /**
+     * 根据roleId查询
+     * @param roleId
+     * @return
+     */
+    public Role selectRoleById(Integer roleId){
+        return roleMapper.selectByPrimaryKey(roleId);
+    }
 }

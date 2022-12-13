@@ -5,6 +5,8 @@ import com.fzt.ktzq.mapper.UserRoleMappingMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 角色权限关联类
  * @author 黄弋峰 2022/12/9
@@ -45,5 +47,9 @@ public class UserRoleMappingService {
             e.printStackTrace();
         }
         return flag;
+    }
+
+    public List<UserRoleMapping> selectByUserId(Long userId){
+        return userRoleMappingMapper.selectByUserId(userId);
     }
 }

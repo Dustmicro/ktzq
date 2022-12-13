@@ -4,8 +4,11 @@ package com.fzt.ktzq.mapper;
 import com.fzt.ktzq.dao.UserRoleMapping;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import tk.mybatis.mapper.common.Mapper;
+
+import java.util.List;
 
 public interface UserRoleMappingMapper extends Mapper<UserRoleMappingMapper> {
 //    int deleteByPrimaryKey(Integer id);
@@ -23,6 +26,9 @@ public interface UserRoleMappingMapper extends Mapper<UserRoleMappingMapper> {
 
     @Delete("delete from user_role_mapping where user_id = #{userId}")
     void deleteByUserId(@Param("userId") Long userId);
+
+    @Select("select * from user_role_mapping where user_id = #{userId}")
+    List<UserRoleMapping> selectByUserId(@Param("userId") Long userId);
 //
 //    UserRoleMapping find(UserRoleMapping record);
 //
