@@ -1,0 +1,16 @@
+com\fzt\ktzq\dao\Aere.class
+com\fzt\ktzq\dao\ForgetPswVo.class
+com\fzt\ktzq\dao\RestResult.class
+com\fzt\ktzq\dao\Program.class
+com\fzt\ktzq\dao\Dictionary.class
+com\fzt\ktzq\dao\OperationLog.class
+com\fzt\ktzq\dao\UserRoleMapping.class
+com\fzt\ktzq\dao\Staff.class
+com\fzt\ktzq\dao\User.class
+com\fzt\ktzq\dao\College.class
+com\fzt\ktzq\dao\CollegeMember.class
+com\fzt\ktzq\dao\MenuRoleMapping.class
+com\fzt\ktzq\dao\Dept.class
+com\fzt\ktzq\dao\Role.class
+com\fzt\ktzq\dao\Work.class
+com\fzt\ktzq\dao\RspPage.class

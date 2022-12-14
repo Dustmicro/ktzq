@@ -10,7 +10,7 @@ import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
-public interface UserRoleMappingMapper extends Mapper<UserRoleMappingMapper> {
+public interface UserRoleMappingMapper extends Mapper<UserRoleMapping> {
 //    int deleteByPrimaryKey(Integer id);
 //
 //    int insert(UserRoleMapping record);

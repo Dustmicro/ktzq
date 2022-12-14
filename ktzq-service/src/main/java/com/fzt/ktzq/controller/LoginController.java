@@ -77,7 +77,7 @@ public class LoginController{
         User dbUser = userService.findUserByUserName(reqMap.get(USERNAME));
         if (dbUser != null) {
 //            Integer status = dbUser.getStatusCd();
-            if ("0".equals(dbUser.getStatusCd())) {
+            if ("1".equals(dbUser.getStatusCd())) {
                 return RestResult.failure("-1", "用户状态异常，请联系管理员");
             }
             String psw = dbUser.getPassword();

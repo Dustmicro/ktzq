@@ -18,7 +18,7 @@ public class OperationLog implements Serializable {
     @Id
     private Integer operationId;
 
-    private Integer userId;
+    private Long userId;
 
     private String userName;
 

@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class ForgetPswVo implements Serializable {
     private static final Long serialVersionUID = 1L;
 
-    private Integer userId;
+    private Long userId;
 
     private String password;
     /**重复密码**/
@@ -18,11 +18,11 @@ public class ForgetPswVo implements Serializable {
     /**验证码**/
     private String verifyCode;
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

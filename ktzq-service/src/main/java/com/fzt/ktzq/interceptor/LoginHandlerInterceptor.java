@@ -169,7 +169,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 
     private Integer handlerPre(User user, String serviceId, Integer collegeId){
         String userName = user.getUserName();
-        Integer userId = user.getUserId();
+        Long userId = user.getUserId();
         OperationLog operationLog = new OperationLog();
         operationLog.setOprateTime(new Date());
         operationLog.setUserId(userId);

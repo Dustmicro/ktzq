@@ -18,8 +18,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry){
+
+        //定义排除swagger访问的路径配置
+        String[] swaggerExcludes=new String[]{"/swagger-ui.html","/swagger-resources/**","/webjars/**"};
+
         registry.addInterceptor(loginHandlerInterceptor)
                 .addPathPatterns("/**")//表示拦截所有请求
-                .excludePathPatterns("/login", "/register");//表示除了登录注册之外，因为登录注册不需要登录也可以访问
+                .excludePathPatterns("/login", "/register")//表示除了登录注册之外，因为登录注册不需要登录也可以访问
+                .excludePathPatterns(swaggerExcludes);
     }
 }

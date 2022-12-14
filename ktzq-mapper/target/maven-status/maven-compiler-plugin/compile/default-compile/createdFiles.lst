@@ -1,0 +1,13 @@
+com\fzt\ktzq\mapper\ProgramMapper.class
+com\fzt\ktzq\mapper\CollegeMapper.class
+com\fzt\ktzq\mapper\DeptMapper.class
+com\fzt\ktzq\mapper\CollegeMemberMapper.class
+com\fzt\ktzq\mapper\AereMapper.class
+com\fzt\ktzq\mapper\DictionaryMapper.class
+com\fzt\ktzq\mapper\UserMapper.class
+com\fzt\ktzq\mapper\UserRoleMappingMapper.class
+com\fzt\ktzq\mapper\StaffMapper.class
+com\fzt\ktzq\mapper\OperationLogMapper.class
+com\fzt\ktzq\mapper\WorkMapper.class
+com\fzt\ktzq\mapper\MenuRoleMappingMapper.class
+com\fzt\ktzq\mapper\RoleMapper.class
