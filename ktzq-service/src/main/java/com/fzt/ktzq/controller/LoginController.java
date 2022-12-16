@@ -111,13 +111,13 @@ public class LoginController{
         }
         User userSelect = new User();
         userSelect.setTel(user.getTel());
-//        User list = userService.selectUser(userSelect);
-//        if (list == null){
-//            logger.info("此电话的用户未找到！！");
-//            return RestResult.failure("-1", "此用户不存在");
-//        }
-//        userSelect = list.get(0);
-        userSelect.setUserId(user.getUserId());
+        List<User> list = userService.checkUser(userSelect);
+        if (StringUtilsFzt.isEmpty(list)){
+            logger.info("此电话的用户未找到！！");
+            return RestResult.failure("-1", "此用户不存在");
+        }
+        userSelect = list.get(0);
+//        userSelect.setUserId(user.getUserId());
         userSelect.setPassword(user.getPassword());
         userSelect.setUpdateTime(new Date());
         userSelect.setPswErrNum(0);
@@ -205,6 +205,10 @@ public class LoginController{
         String psw = dbUser.getPassword();
         if (!psw.equals(reqMap.get("password"))){
             return setPswErr(passwordErrNum, dbUser, pwdErrNumLockValue);
+        }
+        String password = dbUser.getPassword();
+        if (!password.equals(reqMap.get("password"))){
+            return setPswErr(passwordErrNum, dbUser, pwdErrNumLockValue);
         } else {
             if (passwordErrNum > 0){
                 dbUser.setPswErrNum(0);
@@ -226,6 +230,13 @@ public class LoginController{
         }
     }
 
+    /**
+     * 密码错误次数处理
+     * @param passwordErrNum
+     * @param dbUser
+     * @param pwdErrNumLockValue
+     * @return
+     */
     private RestResult<Object> setPswErr( Integer passwordErrNum, User dbUser, Integer pwdErrNumLockValue){
         //设置用户密码错误次数加1
         int errTimes = passwordErrNum + 1;
