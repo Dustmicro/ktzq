@@ -8,6 +8,7 @@ import com.fzt.ktzq.service.CollegeService;
 import com.fzt.ktzq.util.AuthUserContext;
 import com.fzt.ktzq.util.CommConstant;
 import com.fzt.ktzq.util.StringUtilsFzt;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ public class CollegeController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "查询球队")
     @RequestMapping(value = "/selectCollege", method = RequestMethod.POST)
     public Map<String, List<College>> selectCollege() throws ServiceException{
         User user = AuthUserContext.getUser();
@@ -64,6 +66,7 @@ public class CollegeController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "新增球队")
     @RequestMapping(value = "/addCollege", method = RequestMethod.POST)
     public RestResult<Object> addCollege(@RequestBody College college) throws ServiceException{
         logger.info("新增球队服务开始，请求参数，{}", college);
@@ -109,6 +112,7 @@ public class CollegeController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "修改球队")
     @RequestMapping(value = "/updateCollege", method = RequestMethod.POST)
     public RestResult<Object> updateCollege(@RequestBody College college) throws ServiceException{
         logger.info("修改部门服务开始，请求参数，{}", college);
@@ -152,6 +156,7 @@ public class CollegeController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "删除球队")
     @RequestMapping(value = "/deleteCollege", method = RequestMethod.POST)
     public RestResult<Object> deleteCollege(@RequestBody College college) throws ServiceException{
         logger.info("修改球队服务开始，请求参数，{}", college);

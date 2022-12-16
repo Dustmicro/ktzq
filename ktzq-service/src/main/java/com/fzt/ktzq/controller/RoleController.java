@@ -12,6 +12,7 @@ import com.fzt.ktzq.util.CommConstant;
 import com.fzt.ktzq.util.StringUtilsFzt;
 import com.fzt.ktzq.vo.RoleMenuMappVo;
 import com.github.pagehelper.page.PageMethod;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -48,6 +49,7 @@ public class RoleController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "新增角色")
     @RequestMapping(value = "/addRole", method = RequestMethod.POST)
     public String addRole(@RequestBody RoleMenuMappVo roleMenuMappVo) throws ServiceException{
         logger.info("开始新增角色，请求参数，{}", roleMenuMappVo);
@@ -105,6 +107,7 @@ public class RoleController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "查询角色服务")
     @RequestMapping(value = "/selectRole", method = RequestMethod.POST)
     public List<Role> selectRole(@RequestBody Role role) throws ServiceException{
         logger.info("开始查询角色，请求参数，{}", role);
@@ -125,6 +128,7 @@ public class RoleController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "根据当前用户查询角色")
     @RequestMapping(value = "/getRoleByUserId", method = RequestMethod.POST)
     public List<Role> getRoleByUserId() throws ServiceException{
         logger.info("开始获取当前用户角色");

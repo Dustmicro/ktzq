@@ -4,6 +4,7 @@ import com.fzt.ktzq.common.appmid.parser.ServiceException;
 import com.fzt.ktzq.dao.CollegeMember;
 import com.fzt.ktzq.service.CollegeMemberService;
 import com.fzt.ktzq.util.CommConstant;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class CollegeMemberController {
      * 查询球队成员类型
      * @return
      */
+    @ApiOperation(value = "查询球队成员类型")
     @GetMapping("/selectMemberType")
     public List<CollegeMember> selectMemberType() throws ServiceException{
         List<CollegeMember> list = new ArrayList<>();
@@ -45,6 +47,7 @@ public class CollegeMemberController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "查询球队成员信息")
     @RequestMapping(value = "/selectMember", method = RequestMethod.POST)
     public List<CollegeMember> selectMember(@RequestBody CollegeMember collegeMember) throws ServiceException{
         logger.info("查询球队成员服务开始，请求参数，{}", collegeMember);
@@ -64,6 +67,7 @@ public class CollegeMemberController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "新增球队成员")
     @RequestMapping(value = "/addMember", method = RequestMethod.POST)
     public String addMember(@RequestBody CollegeMember collegeMember) throws ServiceException{
         logger.info("新增球队成员服务开始，请求参数，{}", collegeMember);

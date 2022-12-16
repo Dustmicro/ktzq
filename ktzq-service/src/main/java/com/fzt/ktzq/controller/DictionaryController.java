@@ -5,6 +5,7 @@ import com.fzt.ktzq.dao.Dictionary;
 import com.fzt.ktzq.dao.RestResult;
 import com.fzt.ktzq.service.DictionaryService;
 import com.fzt.ktzq.util.CommConstant;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class DictionaryController {
      * 查询所有字典值数据
      * @return
      */
+    @ApiOperation(value = "查询所有字典值数据")
     @GetMapping("/selectDictionaryAll")
     public List<Dictionary> selectAll(){
         List<Dictionary> list = dictionaryService.selectAll();
@@ -39,6 +41,7 @@ public class DictionaryController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "分页查询字典值")
     @RequestMapping(value = "/selectDictionary", method = RequestMethod.POST)
     public List<Dictionary> selectDictionary(@RequestBody Dictionary dictionary) throws ServiceException{
         logger.info("分页查询字典值服务开始，请求参数，{}", dictionary);
@@ -58,6 +61,7 @@ public class DictionaryController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "新增字典值")
     @RequestMapping(value = "/addDictionary", method = RequestMethod.POST)
     public RestResult<Object> addDictionary(@RequestBody Dictionary dictionary) throws ServiceException {
         logger.info("新增字典值服务开始，请求参数，{}", dictionary);
@@ -78,6 +82,7 @@ public class DictionaryController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "删除字典值")
     @RequestMapping(value = "/deleteDictionary", method = RequestMethod.POST)
     public RestResult<Object> deleteDictionary(@RequestBody Dictionary dictionary) throws ServiceException{
         logger.info("删除字典值服务开始，请求参数，{}", dictionary);
@@ -96,6 +101,7 @@ public class DictionaryController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "修改字典值")
     @RequestMapping(value = "/updateDictionary", method = RequestMethod.POST)
     public RestResult<Object> updateDictionary(@RequestBody Dictionary dictionary) throws ServiceException{
         logger.info("修改字典值服务开始，请求参数，{}", dictionary);

@@ -6,6 +6,8 @@ import com.fzt.ktzq.dao.RestResult;
 import com.fzt.ktzq.service.AereService;
 import com.fzt.ktzq.util.CommConstant;
 import com.fzt.ktzq.util.StringUtilsFzt;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import java.util.List;
  * 区域服务控制类
  * @author 黄弋峰  2022/12/3
  */
+@ApiModel(description = "区域服务控制类")
 @RestController
 public class AereController {
     private static final Logger logger = LoggerFactory.getLogger(AereController.class);
@@ -30,6 +33,7 @@ public class AereController {
      * 查询所有区域数据
      * @return
      */
+    @ApiOperation(value = "查询所有区域数据")
     @GetMapping("/selectAereAll")
     public List<Aere> selectAereAll(){
         return aereService.selectAereAll();
@@ -41,6 +45,7 @@ public class AereController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "根据条件查询区域")
     @RequestMapping(value = "/selectAere", method = RequestMethod.POST)
     public List<Aere> selectAere(@RequestBody Aere aere) throws ServiceException{
         logger.info("查询区域服务开始，请求参数，{}", aere);
@@ -60,6 +65,7 @@ public class AereController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "新增区域")
     @RequestMapping(value = "/addAere", method = RequestMethod.POST)
     public RestResult<Object> addAere(@RequestBody Aere aere) throws ServiceException{
         logger.info("新增区域服务开始，请求参数，{}", aere);
@@ -99,6 +105,7 @@ public class AereController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "修改区域")
     @RequestMapping(value = "/updateAere", method = RequestMethod.POST)
     public RestResult<Object> updateAere(@RequestBody Aere aere) throws ServiceException{
         logger.info("修改区域服务开始，请求参数，{}", aere);
@@ -117,6 +124,7 @@ public class AereController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "删除区域")
     @RequestMapping(value = "/deleteAere", method = RequestMethod.POST)
     public RestResult<Object> deleteAere(@RequestBody Aere aere) throws ServiceException{
         logger.info("删除区域服务开始，请求参数，{}", aere);

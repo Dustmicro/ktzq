@@ -5,6 +5,7 @@ import com.fzt.ktzq.dao.Dept;
 import com.fzt.ktzq.dao.RestResult;
 import com.fzt.ktzq.service.DeptService;
 import com.fzt.ktzq.util.CommConstant;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class DeptController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "查询所有部门数据")
     @GetMapping("/selectDeptAll")
     public List<Dept> selectDeptAll() throws ServiceException{
         List<Dept> list = deptService.selectDeptAll();
@@ -44,6 +46,7 @@ public class DeptController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "根据条件查询部门")
     @RequestMapping(value = "/selectDept", method = RequestMethod.POST)
     public List<Dept> selectDept(@RequestBody Dept dept) throws ServiceException{
         logger.info("查询部门服务开始，请求参数，{}", dept);
@@ -63,6 +66,7 @@ public class DeptController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "新增球队下的部门")
     @RequestMapping(value = "/addDeptByCollege", method = RequestMethod.POST)
     public RestResult<Object> addDeptByCollege(@RequestBody Dept dept) throws ServiceException{
         logger.info("新增学院下部门服务开始，请求参数，{}", dept);
@@ -83,6 +87,7 @@ public class DeptController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "新增区域下部门")
     @RequestMapping(value = "/addDeptByAere", method = RequestMethod.POST)
     public RestResult<Object> addDeptByAere(@RequestBody Dept dept) throws ServiceException{
         logger.info("新增区域下部门服务开始，请求参数，{}", dept);
@@ -103,6 +108,7 @@ public class DeptController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "修改部门服务")
     @RequestMapping(value = "/updateDept", method = RequestMethod.POST)
     public RestResult<Object> updateDept(@RequestBody Dept dept) throws ServiceException{
         logger.info("修改部门服务开始，请求参数，{}", dept);
@@ -121,6 +127,7 @@ public class DeptController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "删除部门服务")
     @RequestMapping(value = "/deleteDept", method = RequestMethod.POST)
     public RestResult<Object> deleteDept(@RequestBody Dept dept) throws ServiceException{
         logger.info("删除部门服务开始，请求参数，{}", dept);

@@ -6,6 +6,7 @@ import com.fzt.ktzq.service.*;
 import com.fzt.ktzq.util.AuthUserContext;
 import com.fzt.ktzq.util.CommConstant;
 import com.fzt.ktzq.util.StringUtilsFzt;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,7 @@ public class StaffController {
      * 查询所有员工数据
      * @return
      */
+    @ApiOperation(value = "查询所有员工数据")
     @GetMapping("/selectStaffAll")
     public List<Staff> selectStaffAll(){
         return staffService.selectStaffAll();
@@ -49,6 +51,7 @@ public class StaffController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "根据条件查询员工")
     @RequestMapping(value = "/selectStaff", method = RequestMethod.POST)
     public List<Staff> selectStaff(@RequestBody Staff staff) throws ServiceException {
         logger.info("查询员工服务开始，请求参数，{}", staff);
@@ -68,6 +71,7 @@ public class StaffController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "新增员工")
     @RequestMapping(value = "/addStaff", method = RequestMethod.POST)
     public RestResult<Object> addStaff(@RequestBody Staff staff) throws ServiceException {
         logger.info("新增员工服务开始，请求参数，{}", staff);
@@ -117,6 +121,7 @@ public class StaffController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "修改员工服务")
     @RequestMapping(value = "/updateStaff", method = RequestMethod.POST)
     public String updateStaff(@RequestBody Staff staff) throws ServiceException{
         logger.info("修改员工服务开始，请求参数，{}", staff);
@@ -174,6 +179,7 @@ public class StaffController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "删除员工信息")
     @RequestMapping(value = "/deleteStaff", method = RequestMethod.POST)
     public String deleteStaff(@RequestBody Staff staff) throws ServiceException{
         logger.info("删除员工服务开始，请求参数，{}", staff);
@@ -211,6 +217,7 @@ public class StaffController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "查询职务")
     @RequestMapping(value = "/selectWork", method = RequestMethod.POST)
     public List<Work> selectWork(@RequestBody Work work) throws ServiceException{
         logger.info("查询职务开始");
@@ -230,6 +237,7 @@ public class StaffController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "修改员工密码服务")
     @RequestMapping(value = "/updateStaffPsw", method = RequestMethod.POST)
     public String updateStaffPsw(@RequestBody Staff staff) throws ServiceException{
         logger.info("修改员工密码服务开始，请求参数，{}", staff);

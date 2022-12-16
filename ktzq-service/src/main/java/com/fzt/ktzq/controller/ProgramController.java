@@ -9,6 +9,7 @@ import com.fzt.ktzq.service.CollegeService;
 import com.fzt.ktzq.service.ProgramService;
 import com.fzt.ktzq.util.AuthUserContext;
 import com.fzt.ktzq.util.CommConstant;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ public class ProgramController {
      * 查询所有日程
      * @return
      */
+    @ApiOperation(value = "查询所有日程")
     @GetMapping("/selectProgramAll")
     public List<Program> selectProgramAll(){
         return programService.selectProgramAll();
@@ -46,6 +48,7 @@ public class ProgramController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "新增日程服务")
     @RequestMapping(value = "/addProgram", method = RequestMethod.POST)
     public RestResult<Object> addProgram(@RequestBody Program program) throws ServiceException{
         logger.info("新增日程服务开始，请求参数，{}", program);
@@ -79,6 +82,7 @@ public class ProgramController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "删除日程")
     @RequestMapping(value = "/deleteProgram", method = RequestMethod.POST)
     public RestResult<Object> deleteProgram(@RequestBody Program program) throws ServiceException{
         logger.info("删除日程服务开始，请求参数，{}", program);
@@ -97,6 +101,7 @@ public class ProgramController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "修改日程")
     @RequestMapping(value = "/updateProgram", method = RequestMethod.POST)
     public RestResult<Object> updateProgram(@RequestBody Program program) throws ServiceException{
         logger.info("修改日程服务开始，请求参数，{}", program);
@@ -115,6 +120,7 @@ public class ProgramController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation(value = "根据条件查询日程")
     @RequestMapping(value = "/selectProgram", method = RequestMethod.POST)
     public RestResult<Object> selectProgram(@RequestBody Program program) throws ServiceException{
         logger.info("查询日程服务开始，请求参数，{}", program);
