@@ -90,20 +90,8 @@ public class LoginController{
                 dbUser.setPswErrNum(0);
             }
             userService.updateUser(dbUser);
-
-            //生成token
-            String token = TokenUtil.getToken(dbUser);
-            rsp.setHeader("token", token);
-
-            Map<String, Object> map = new HashMap<>();
-            dbUser.setPassword(null);
-            map.put("user", dbUser);
-            String sessionId = req.getSession().getId();
-            rsp.setHeader(SESSION_ID, sessionId);
-            //返回给客户端保存
-            req.getSession().setAttribute("userId", dbUser.getUserId());
-            AuthUserContext.remove();
-            return RestResult.success(map);
+            //最后做一些校验
+            return checkPwd(dbUser, passwordErrNum, reqMap, req, rsp);
         }else {
             return RestResult.failure("-1", USER_PWD_ERR);
         }
@@ -123,13 +111,13 @@ public class LoginController{
         }
         User userSelect = new User();
         userSelect.setTel(user.getTel());
-//        User list = userService.selectUser(userSelect);
-//        if (list == null){
-//            logger.info("此电话的用户未找到！！");
-//            return RestResult.failure("-1", "此用户不存在");
-//        }
-//        userSelect = list.get(0);
-        userSelect.setUserId(user.getUserId());
+        List<User> list = userService.checkUser(userSelect);
+        if (StringUtilsFzt.isEmpty(list)){
+            logger.info("此电话的用户未找到！！");
+            return RestResult.failure("-1", "此用户不存在");
+        }
+        userSelect = list.get(0);
+//        userSelect.setUserId(user.getUserId());
         userSelect.setPassword(user.getPassword());
         userSelect.setUpdateTime(new Date());
         userSelect.setPswErrNum(0);
@@ -202,11 +190,38 @@ public class LoginController{
         Integer pwdErrNumLockValue = Integer.parseInt(pwdErrNumLock);
         if (passwordErrNum >= pwdErrNumLockValue){
             return RestResult.failure("-1","用户错误次数已超限制，用户已锁定，请联系管理员！！");
+        }
+        String password = dbUser.getPassword();
+        if (!password.equals(reqMap.get("password"))){
+            return setPswErr(passwordErrNum, dbUser, pwdErrNumLockValue);
         } else {
-            return null;
+            if (passwordErrNum > 0){
+                dbUser.setPswErrNum(0);
+                userService.updateUser(dbUser);
+            }
+            //生成token
+            String token = TokenUtil.getToken(dbUser);
+            rsp.setHeader("token", token);
+
+            Map<String, Object> map = new HashMap<>();
+            dbUser.setPassword(null);
+            map.put("user", dbUser);
+            String sessionId = req.getSession().getId();
+            rsp.setHeader(SESSION_ID, sessionId);
+            //返回给客户端保存
+            req.getSession().setAttribute("userId", dbUser.getUserId());
+            AuthUserContext.remove();
+            return RestResult.success(map);
         }
     }
 
+    /**
+     * 密码错误次数处理
+     * @param passwordErrNum
+     * @param dbUser
+     * @param pwdErrNumLockValue
+     * @return
+     */
     private RestResult<Object> setPswErr( Integer passwordErrNum, User dbUser, Integer pwdErrNumLockValue){
         //设置用户密码错误次数加1
         int errTimes = passwordErrNum + 1;
