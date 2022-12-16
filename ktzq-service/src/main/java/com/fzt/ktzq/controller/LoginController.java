@@ -2,11 +2,13 @@ package com.fzt.ktzq.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.fzt.ktzq.common.appmid.parser.ServiceException;
+import com.fzt.ktzq.dao.Dictionary;
 import com.fzt.ktzq.dao.ForgetPswVo;
 import com.fzt.ktzq.dao.RestResult;
 import com.fzt.ktzq.dao.User;
 import com.fzt.ktzq.redis.MappingCache;
 import com.fzt.ktzq.service.CommService;
+import com.fzt.ktzq.service.DictionaryService;
 import com.fzt.ktzq.service.UserService;
 import com.fzt.ktzq.util.AuthUserContext;
 import com.fzt.ktzq.util.CommConstant;
@@ -52,6 +54,9 @@ public class LoginController{
     @Autowired(required = false)
     CommService commService;
 
+    @Autowired
+    DictionaryService dictionaryService;
+
     @ApiOperation(value = "用户登录前获取令牌")
     @PostMapping(value = "/preLogin", produces = "application/json; charset=utf-8")
     public RestResult<Object> preLogin(@RequestBody Map<String, String> reMap){
@@ -80,30 +85,13 @@ public class LoginController{
             if ("1".equals(dbUser.getStatusCd())) {
                 return RestResult.failure("-1", "用户状态异常，请联系管理员");
             }
-            String psw = dbUser.getPassword();
-            if (!psw.equals(reqMap.get("password"))){
-                return RestResult.failure("-1", USER_PWD_ERR);
-            }
             //如果为空，则将密码错误次数置0
             Integer passwordErrNum = dbUser.getPswErrNum();
             if (passwordErrNum == null){
                 dbUser.setPswErrNum(0);
+                userService.updateUser(dbUser);
             }
-            userService.updateUser(dbUser);
-
-            //生成token
-            String token = TokenUtil.getToken(dbUser);
-            rsp.setHeader("token", token);
-
-            Map<String, Object> map = new HashMap<>();
-            dbUser.setPassword(null);
-            map.put("user", dbUser);
-            String sessionId = req.getSession().getId();
-            rsp.setHeader(SESSION_ID, sessionId);
-            //返回给客户端保存
-            req.getSession().setAttribute("userId", dbUser.getUserId());
-            AuthUserContext.remove();
-            return RestResult.success(map);
+            return checkPwd(dbUser, passwordErrNum, req, rsp, reqMap);
         }else {
             return RestResult.failure("-1", USER_PWD_ERR);
         }
@@ -197,13 +185,44 @@ public class LoginController{
      * @param rsp
      * @return
      */
-    private RestResult<Object> checkPwd(User dbUser, Integer passwordErrNum, Map<String, String> reqMap, HttpServletRequest req, HttpServletResponse rsp ) {
-        String pwdErrNumLock = commService.getDictionaryValue(MappingCache.COMMON_DOMAIN, "pwdErrNumLock");
+    private RestResult<Object> checkPwd(User dbUser, Integer passwordErrNum, HttpServletRequest req, HttpServletResponse rsp, Map<String, String> reqMap) {
+        Dictionary db = new Dictionary();
+        db.setDicName("pwdErrNumLock");
+        List<Dictionary> list = dictionaryService.selectDictionary(db);
+        Dictionary dictionary = new Dictionary();
+        if (StringUtilsFzt.isNotEmpty(list) && list.size() == 1){
+            dictionary = list.get(0);
+            //存入缓存
+//            MappingCache.setValue(dictionary);
+        } else {
+            logger.error("domain{},key{}的值在字典至表中未找到！", db.getDicName());
+        }
+        String pwdErrNumLock = dictionary.getDicTypeId();
         Integer pwdErrNumLockValue = Integer.parseInt(pwdErrNumLock);
         if (passwordErrNum >= pwdErrNumLockValue){
             return RestResult.failure("-1","用户错误次数已超限制，用户已锁定，请联系管理员！！");
+        }
+        String psw = dbUser.getPassword();
+        if (!psw.equals(reqMap.get("password"))){
+            return setPswErr(passwordErrNum, dbUser, pwdErrNumLockValue);
         } else {
-            return null;
+            if (passwordErrNum > 0){
+                dbUser.setPswErrNum(0);
+                userService.updateUser(dbUser);
+            }
+            //生成token
+            String token = TokenUtil.getToken(dbUser);
+            rsp.setHeader("token", token);
+
+            Map<String, Object> map = new HashMap<>();
+            dbUser.setPassword(null);
+            map.put("user", dbUser);
+            String sessionId = req.getSession().getId();
+            rsp.setHeader(SESSION_ID, sessionId);
+            //返回给客户端保存
+            req.getSession().setAttribute("userId", dbUser.getUserId());
+            AuthUserContext.remove();
+            return RestResult.success(map);
         }
     }
 

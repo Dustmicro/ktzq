@@ -26,23 +26,21 @@ public class CommService {
      * @param key
      * @return
      */
-    public String getDictionaryValue(String domain, String key) {
-        String value = MappingCache.getValue(domain, key);
-        if (StringUtilsFzt.isNotEmpty(value)){
-            return value;
-        } else {
+    public String getDictionaryValue(String key) {
+//        String value = MappingCache.getValue(domain, key);
+//        if (StringUtilsFzt.isNotEmpty(value)){
+//            return value;
+//        } else {
             Dictionary db = new Dictionary();
-            db.setDicTypeId(domain);
-            db.setDicTypeId(key);
-            List<Dictionary> list = dictionaryMapper.selectByExample(db);
+            db.setDicName(key);
+            List<Dictionary> list = dictionaryMapper.select(db);
             if (StringUtilsFzt.isNotEmpty(list) && list.size() == 1){
                 Dictionary dictionary = list.get(0);
                 MappingCache.setValue(dictionary);
-                return dictionary.getDicName();
+                return dictionary.getDicTypeId();
             } else {
-                logger.error("domain{},key{}的值在字典至表中未找到！",domain, key);
+                logger.error("domain{},key{}的值在字典至表中未找到！", key);
             }
-        }
         return null;
     }
 }

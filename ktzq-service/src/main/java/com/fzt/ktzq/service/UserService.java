@@ -2,6 +2,7 @@ package com.fzt.ktzq.service;
 
 import com.fzt.ktzq.dao.User;
 import com.fzt.ktzq.mapper.UserMapper;
+import com.fzt.ktzq.util.StringUtilsFzt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -100,7 +101,7 @@ public class UserService {
         User userName = new User();
         userName.setAccount(user);
         List<User> list = userMapper.select(userName);
-        if (list != null){
+        if (StringUtilsFzt.isNotEmpty(list)){
             return list.get(0);
         } else {
             return null;
