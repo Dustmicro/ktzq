@@ -24,7 +24,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
         registry.addInterceptor(loginHandlerInterceptor)
                 .addPathPatterns("/**")//表示拦截所有请求
-                .excludePathPatterns("/login", "/register")//表示除了登录注册之外，因为登录注册不需要登录也可以访问
+                .excludePathPatterns("/login")
+                .excludePathPatterns("/register")//表示除了登录注册之外，因为登录注册不需要登录也可以访问
                 .excludePathPatterns(swaggerExcludes);
     }
 }

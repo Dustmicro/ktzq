@@ -1,5 +1,7 @@
 package com.fzt.ktzq.dao;
 
+import com.sun.istack.internal.NotNull;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,6 +23,7 @@ public class User implements Serializable {
     @KeySql(useGeneratedKeys = true)
     private Long userId;
 
+    @ApiModelProperty(value = "自建应用的agentId", required = true)
     private String userName;
 
     private Integer age;

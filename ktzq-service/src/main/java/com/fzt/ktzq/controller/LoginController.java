@@ -128,52 +128,81 @@ public class LoginController{
 
     @ApiOperation(value = "注册")
     @PostMapping(value = "/register", produces = "application/json; charset=utf-8")
-    public RestResult<Object> register(@RequestBody User user) throws ServiceException{
-        logger.info("注册服务开始，请求参数，{}", user);
-        Assert.isNull(user.getUserName(), "用户名不可为空！！");
-        Assert.isNull(user.getPassword(), "密码不可为空！！");
-        Assert.isNull(user.getTel(), TEL_NOT_NULL);
-        Assert.isNull(user.getEMail(), "邮箱不可为空！！");
+    public RestResult<Object> register(@RequestBody Map<String, String> reqMap) throws ServiceException{
+        logger.info("注册服务开始，请求参数，{}", reqMap);
+        Assert.notNull(reqMap.get("userName"), "用户名不可为空！！");
+        Assert.notNull(reqMap.get("password"), "密码不可为空！！");
+        Assert.notNull(reqMap.get("tel"), TEL_NOT_NULL);
+        Assert.notNull(reqMap.get("email"), "邮箱不可为空！！");
+        try {
+            if (!reqMap.get("password").equals(reqMap.get("passwordRept"))){
+                logger.info("两次密码不一致！！");
+                return RestResult.failure("-1", "两次密码不一致");
+            }
 
-        if (!user.getPassword().equals(user.getPasswordRept())){
-            logger.info("两次密码不一致！！");
-            return RestResult.failure("-1", "两次密码不一致");
+            //校验用户名
+            User dbUser = new User();
+            dbUser.setUserName(reqMap.get("userName"));
+            List<User> list = userService.checkUser(dbUser);
+            if (StringUtilsFzt.isNotEmpty(list)){
+                logger.info("该用户名已被占用");
+                return RestResult.failure(CommConstant.ERROR_CODE, "该用户名已被占用");
+            }
+
+            //校验邮箱
+            dbUser.setUserName(null);
+            dbUser.setEMail(reqMap.get("email"));
+            List<User> Email = userService.checkUser(dbUser);
+            if (StringUtilsFzt.isNotEmpty(Email)){
+                logger.info("该邮箱已被占用");
+                return RestResult.failure(CommConstant.ERROR_CODE, "该邮箱已被占用");
+            }
+
+            //校验手机号
+            dbUser.setEMail(null);
+            dbUser.setTel(reqMap.get("tel"));
+            List<User> tel = userService.checkUser(dbUser);
+            if (StringUtilsFzt.isNotEmpty(tel)){
+                logger.info("该手机号已被占用");
+                return RestResult.failure(CommConstant.ERROR_CODE, "改手机号已被占用");
+            }
+
+            //校验账号
+            dbUser.setTel(null);
+            dbUser.setAccount(reqMap.get("account"));
+            List<User> account = userService.checkUser(dbUser);
+            if (StringUtilsFzt.isNotEmpty(account)){
+                logger.info("该账号已被占用");
+                return RestResult.failure(CommConstant.ERROR_CODE, "该账号已被占用");
+            }
+
+            dbUser.setUserName(reqMap.get("userName"));
+            dbUser.setEMail(reqMap.get("email"));
+            dbUser.setAge(Integer.valueOf(reqMap.get("age")));
+            dbUser.setSex(Integer.valueOf(reqMap.get("sex")));
+            dbUser.setTel(reqMap.get("tel"));
+            dbUser.setRoleId(Integer.valueOf(reqMap.get("roleId")));
+            dbUser.setCollegeId(Integer.valueOf(reqMap.get("collegeId")));
+            dbUser.setCollegeName(reqMap.get("collegeName"));
+            dbUser.setAereNum(reqMap.get("aereNum"));
+            dbUser.setAereName(reqMap.get("aereName"));
+            dbUser.setAddress(reqMap.get("address"));
+            dbUser.setPassword(reqMap.get("password"));
+            dbUser.setUMark(reqMap.get("umark"));
+
+            boolean insertUser = userService.insertUser(dbUser);
+            if (insertUser = true){
+                logger.info("注册成功！！");
+                return RestResult.success(JSON.toJSONString("注册成功！！"));
+            } else {
+                logger.info("注册失败！！");
+                return RestResult.failure(CommConstant.ERROR_CODE, "注册失败！！");
+            }
+        } catch (Exception e){
+            logger.info("注册异常！！");
+            throw new ServiceException(CommConstant.ERROR_CODE, "注册异常！！");
         }
 
-        //校验用户名
-        User dbUser = new User();
-        dbUser.setUserName(user.getUserName());
-        List<User> list = userService.checkUser(dbUser);
-        if (StringUtilsFzt.isNotEmpty(list)){
-            logger.info("该用户名已被占用");
-            return RestResult.failure(CommConstant.ERROR_CODE, "该用户名已被占用");
-        }
-
-        //校验邮箱
-        dbUser.setUserName(null);
-        dbUser.setEMail(user.getEMail());
-        List<User> Email = userService.checkUser(dbUser);
-        if (StringUtilsFzt.isNotEmpty(Email)){
-            logger.info("该邮箱已被占用");
-            return RestResult.failure(CommConstant.ERROR_CODE, "该邮箱已被占用");
-        }
-
-        //校验手机号
-        dbUser.setEMail(null);
-        dbUser.setTel(user.getTel());
-        List<User> tel = userService.checkUser(dbUser);
-        if (StringUtilsFzt.isNotEmpty(tel)){
-            logger.info("该手机号已被占用");
-            return RestResult.failure(CommConstant.ERROR_CODE, "改手机号已被占用");
-        }
-        int insertUser = userService.insertUser(dbUser);
-        if (insertUser > 0){
-            logger.info("注册成功！！");
-            return RestResult.success(JSON.toJSONString("注册成功！！"));
-        } else {
-            logger.info("注册失败！！");
-            return RestResult.failure(CommConstant.ERROR_CODE, "注册失败！！");
-        }
     }
 
     /**

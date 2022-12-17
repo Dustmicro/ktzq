@@ -53,9 +53,16 @@ public class UserService {
      * @param user
      * @return
      */
-    @Transactional
-    public int insertUser(User user){
-        return userMapper.insertSelective(user);
+//    @Transactional
+    public boolean insertUser(User user){
+        boolean flag = false;
+        try {
+            userMapper.insertSelective(user);
+            flag = true;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
     }
 
     /**

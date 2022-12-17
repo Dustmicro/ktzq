@@ -10,17 +10,17 @@ import java.util.List;
 
 
 public interface UserMapper extends Mapper<User> {
-    int deleteByPrimaryKey(String userId);
+//    int deleteByPrimaryKey(String userId);
+//
+//    int insert(User record);
 
-    int insert(User record);
-
-    int insertSelective(User record);
+//    int insertSelective(User record);
 
 //    User selectByPrimaryKey(String userId);
 
 //    int updateByPrimaryKeySelective(User record);
 
-    int updateByPrimaryKey(User record);
+//    int updateByPrimaryKey(User record);
 
     User find(User record);
 
