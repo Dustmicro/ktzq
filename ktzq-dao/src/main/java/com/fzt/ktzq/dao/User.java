@@ -1,6 +1,5 @@
 package com.fzt.ktzq.dao;
 
-import com.sun.istack.internal.NotNull;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
