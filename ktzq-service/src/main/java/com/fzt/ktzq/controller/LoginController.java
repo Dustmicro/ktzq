@@ -181,7 +181,7 @@ public class LoginController{
             dbUser.setAge(Integer.valueOf(reqMap.get("age")));
             dbUser.setSex(Integer.valueOf(reqMap.get("sex")));
             dbUser.setTel(reqMap.get("tel"));
-            dbUser.setRoleId(Integer.valueOf(reqMap.get("roleId")));
+            dbUser.setRoleId(0);//新注册的用户默认为游客
             dbUser.setCollegeId(Integer.valueOf(reqMap.get("collegeId")));
             dbUser.setCollegeName(reqMap.get("collegeName"));
             dbUser.setAereNum(reqMap.get("aereNum"));
