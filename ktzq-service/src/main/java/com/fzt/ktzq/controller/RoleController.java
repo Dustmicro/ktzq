@@ -5,6 +5,7 @@ import com.fzt.ktzq.dao.MenuRoleMapping;
 import com.fzt.ktzq.dao.Role;
 import com.fzt.ktzq.dao.User;
 import com.fzt.ktzq.dao.UserRoleMapping;
+import com.fzt.ktzq.service.MenuRoleMappingService;
 import com.fzt.ktzq.service.RoleService;
 import com.fzt.ktzq.service.UserRoleMappingService;
 import com.fzt.ktzq.util.AuthUserContext;

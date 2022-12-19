@@ -81,4 +81,42 @@ public class CollegeMemberController {
         }
         return CommConstant.SUCCESS;
     }
+
+    /**
+     * 删除球队成员服务
+     * @param collegeMember
+     * @return
+     * @throws ServiceException
+     */
+    @ApiOperation(value = "删除球队成员")
+    @RequestMapping(value = "/deleteMember", method = RequestMethod.POST)
+    public String deleteMember(@RequestBody CollegeMember collegeMember) throws ServiceException{
+        logger.info("删除球队成员服务开始，请求参数，{}", collegeMember);
+        try {
+            //这里还应该在添加一些数据校验
+            collegeMemberService.deleteMember(collegeMember);
+        } catch (Exception e){
+            throw new ServiceException(CommConstant.ERROR_CODE, "删除球队成员信息异常");
+        }
+        return CommConstant.SUCCESS;
+    }
+
+    /**
+     * 修改球队成员服务
+     * @param collegeMember
+     * @return
+     * @throws ServiceException
+     */
+    @ApiOperation(value = "修改球队成员")
+    @RequestMapping(value = "/updateMember", method = RequestMethod.POST)
+    public String updateMember(@RequestBody CollegeMember collegeMember) throws ServiceException{
+        logger.info("修改球队成员服务开始，请求参数，{}", collegeMember);
+        try {
+            //这里还应该在添加一些数据校验
+            collegeMemberService.updateMember(collegeMember);
+        } catch (Exception e){
+            throw new ServiceException(CommConstant.ERROR_CODE, "修改球队成员信息异常");
+        }
+        return CommConstant.SUCCESS;
+    }
 }
