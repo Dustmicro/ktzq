@@ -44,6 +44,22 @@ public class RoleService {
     }
 
     /**
+     * 删除角色
+     * @param role
+     * @return
+     */
+    public boolean deleteRole(Role role){
+        boolean flag = false;
+        try {
+            roleMapper.deleteByPrimaryKey(role);
+            flag = true;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    /**
      * 单条数据查询
      * @param role
      * @return

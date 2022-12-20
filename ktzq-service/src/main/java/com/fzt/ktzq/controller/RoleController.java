@@ -50,7 +50,7 @@ public class RoleController {
      * @return
      * @throws ServiceException
      */
-    @ApiOperation(value = "新增角色")
+    @ApiOperation(value = "新增角色服务")
     @RequestMapping(value = "/addRole", method = RequestMethod.POST)
     public String addRole(@RequestBody RoleMenuMappVo roleMenuMappVo) throws ServiceException{
         logger.info("开始新增角色，请求参数，{}", roleMenuMappVo);
@@ -150,5 +150,25 @@ public class RoleController {
             throw new ServiceException(CommConstant.ERROR_CODE, "查询角色信息异常");
         }
         return list;
+    }
+
+    /**
+     * 删除角色服务
+     * @param role
+     * @return
+     * @throws ServiceException
+     */
+    @ApiOperation(value = "删除角色服务")
+    @RequestMapping(value = "/deleteRole", method = RequestMethod.POST)
+    public String deleteRole(@RequestBody Role role) throws ServiceException{
+        logger.info("开始删除角色，请求参数，{}", role);
+        try {
+            //这里应该加入一些校验
+            roleService.deleteRole(role);
+        } catch (Exception e){
+            logger.info("查询角色信息异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, "查询角色信息异常");
+        }
+        return CommConstant.SUCCESS;
     }
 }
