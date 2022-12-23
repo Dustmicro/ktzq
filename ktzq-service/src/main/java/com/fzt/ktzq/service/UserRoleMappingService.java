@@ -52,4 +52,8 @@ public class UserRoleMappingService {
     public List<UserRoleMapping> selectByUserId(Long userId){
         return userRoleMappingMapper.selectByUserId(userId);
     }
+
+    public List<UserRoleMapping> selectUser(UserRoleMapping userRoleMapping){
+        return userRoleMappingMapper.select(userRoleMapping);
+    }
 }

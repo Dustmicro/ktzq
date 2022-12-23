@@ -164,6 +164,12 @@ public class RoleController {
         logger.info("开始删除角色，请求参数，{}", role);
         try {
             //这里应该加入一些校验
+            UserRoleMapping userRoleMapping = new UserRoleMapping();
+            userRoleMapping.setRoleId(role.getRoleId());
+            List<UserRoleMapping> list = userRoleMappingService.selectUser(userRoleMapping);
+            if (StringUtilsFzt.isNotEmpty(list)){
+                throw new ServiceException(CommConstant.ERROR_CODE, "该角色下还有人员，请先删除人员后再删除角色！！");
+            }
             roleService.deleteRole(role);
         } catch (Exception e){
             logger.info("查询角色信息异常");
