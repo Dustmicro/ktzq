@@ -6,7 +6,6 @@ import com.fzt.ktzq.dao.Dictionary;
 import com.fzt.ktzq.dao.ForgetPswVo;
 import com.fzt.ktzq.dao.RestResult;
 import com.fzt.ktzq.dao.User;
-import com.fzt.ktzq.redis.MappingCache;
 import com.fzt.ktzq.service.CommService;
 import com.fzt.ktzq.service.DictionaryService;
 import com.fzt.ktzq.service.UserService;
