@@ -164,7 +164,35 @@ public class RoleController {
         logger.info("开始删除角色，请求参数，{}", role);
         try {
             //这里应该加入一些校验
+            UserRoleMapping userRoleMapping = new UserRoleMapping();
+            userRoleMapping.setRoleId(role.getRoleId());
+            List<UserRoleMapping> list = userRoleMappingService.selectUser(userRoleMapping);
+            if (StringUtilsFzt.isNotEmpty(list)){
+                throw new ServiceException(CommConstant.ERROR_CODE, "该角色下还有人员，请先删除人员后再删除角色！！");
+            }
             roleService.deleteRole(role);
+        } catch (ServiceException e){
+            throw new ServiceException(CommConstant.ERROR_CODE, e.getDesc());
+        } catch (Exception e){
+            logger.info("删除角色信息异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, "删除角色信息异常");
+        }
+        return CommConstant.SUCCESS;
+    }
+
+    /**
+     * 修改角色
+     * @param role
+     * @return
+     * @throws ServiceException
+     */
+    @ApiOperation(value = "修改角色服务")
+    @RequestMapping(value = "/updateRole", method = RequestMethod.POST)
+    public String updateRole(@RequestBody Role role) throws ServiceException{
+        logger.info("开始修改角色，请求参数，{}", role);
+        try {
+            //在这里加入一些校验
+            roleService.updateRole(role);
         } catch (Exception e){
             logger.info("查询角色信息异常");
             throw new ServiceException(CommConstant.ERROR_CODE, "查询角色信息异常");

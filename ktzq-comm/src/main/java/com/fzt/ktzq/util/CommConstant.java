@@ -23,6 +23,9 @@ public class CommConstant {
     /**成功**/
     public static final String SUCCESS = "成功";
 
+    /**成功码**/
+    public static final String SUCCESS_CODE = "0000";
+
     public static final String DATA = "data";
 
     public static final String COLLEGE_ID_NOT_NULL = "球队id不能为空";
