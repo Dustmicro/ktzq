@@ -10,8 +10,8 @@
         <module name="ktzq_local" />
         <module name="ktzq-dao" />
         <module name="ktzq-mapper" />
-        <module name="ktzq-service" />
         <module name="ktzq-comm" />
+        <module name="ktzq-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
