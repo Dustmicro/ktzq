@@ -110,6 +110,8 @@ public class AereController {
     public RestResult<Object> updateAere(@RequestBody Aere aere) throws ServiceException{
         logger.info("修改区域服务开始，请求参数，{}", aere);
         try {
+            //修改之前这里还应该做一些校验
+            //修改的同时还应该修改一些相关联的表
             aereService.updateAere(aere);
         } catch (Exception e){
             logger.info("修改区域异常");
@@ -129,6 +131,7 @@ public class AereController {
     public RestResult<Object> deleteAere(@RequestBody Aere aere) throws ServiceException{
         logger.info("删除区域服务开始，请求参数，{}", aere);
         try {
+            //删除之前这里还应该做一些校验
             aereService.updateAere(aere);
         } catch (Exception e){
             logger.info("修改区域异常");
