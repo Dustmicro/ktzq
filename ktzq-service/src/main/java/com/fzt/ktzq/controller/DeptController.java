@@ -61,7 +61,7 @@ public class DeptController {
     }
 
     /**
-     * 新增学院下的部门
+     * 新增球队下的部门
      * @param dept
      * @return
      * @throws ServiceException
@@ -69,8 +69,8 @@ public class DeptController {
     @ApiOperation(value = "新增球队下的部门")
     @RequestMapping(value = "/addDeptByCollege", method = RequestMethod.POST)
     public RestResult<Object> addDeptByCollege(@RequestBody Dept dept) throws ServiceException{
-        logger.info("新增学院下部门服务开始，请求参数，{}", dept);
-        Assert.notNull(dept.getDeptName(), "学院下部门名称不可为空");
+        logger.info("新增球队下部门服务开始，请求参数，{}", dept);
+        Assert.notNull(dept.getDeptName(), "球队下部门名称不可为空");
         Assert.notNull(dept.getDeptId(), DEPT_ID_NOT_NULL);
         try {
             deptService.addDeptByCollege(dept);

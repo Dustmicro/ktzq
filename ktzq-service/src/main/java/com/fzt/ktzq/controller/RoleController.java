@@ -1,17 +1,13 @@
 package com.fzt.ktzq.controller;
 
 import com.fzt.ktzq.common.appmid.parser.ServiceException;
-import com.fzt.ktzq.dao.MenuRoleMapping;
-import com.fzt.ktzq.dao.Role;
-import com.fzt.ktzq.dao.User;
-import com.fzt.ktzq.dao.UserRoleMapping;
-import com.fzt.ktzq.service.MenuRoleMappingService;
-import com.fzt.ktzq.service.RoleService;
-import com.fzt.ktzq.service.UserRoleMappingService;
+import com.fzt.ktzq.dao.*;
+import com.fzt.ktzq.service.*;
 import com.fzt.ktzq.util.AuthUserContext;
 import com.fzt.ktzq.util.CommConstant;
 import com.fzt.ktzq.util.StringUtilsFzt;
 import com.fzt.ktzq.vo.RoleMenuMappVo;
+import com.fzt.ktzq.vo.UserRoleVo;
 import com.github.pagehelper.page.PageMethod;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -43,6 +39,9 @@ public class RoleController {
 
     @Autowired
     UserRoleMappingService userRoleMappingService;
+
+    @Autowired
+    StaffService staffService;
 
     /**
      * 新增角色
@@ -196,6 +195,40 @@ public class RoleController {
         } catch (Exception e){
             logger.info("查询角色信息异常");
             throw new ServiceException(CommConstant.ERROR_CODE, "查询角色信息异常");
+        }
+        return CommConstant.SUCCESS;
+    }
+
+    /**
+     * 角色认证服务
+     * @param userRoleVo
+     * @return
+     * @throws ServiceException
+     */
+    @ApiOperation(value = "角色认证服务")
+    @RequestMapping(value = "/autRole", method = RequestMethod.POST)
+    public String autRole(@RequestBody UserRoleVo userRoleVo) throws ServiceException{
+        logger.info("开始分配角色菜单权限，请求参数，{}", userRoleVo);
+        try {
+            List<Integer> roleVoList = userRoleVo.getRoleList();
+            List<UserRoleMapping> list = new ArrayList<>();
+            if (userRoleVo.getStaffId() != null){
+                logger.info("开始分配角色菜单权限");
+                int staffId = userRoleVo.getStaffId();
+                Staff staff = staffService.selectStaffById(staffId);
+                if (StringUtilsFzt.isNotEmpty(roleVoList)){
+                    for (Integer roleId : roleVoList){
+                        UserRoleMapping userRoleMapping = new UserRoleMapping();
+                        userRoleMapping.setRoleId(roleId);
+                        userRoleMapping.setUserId(staff.getUserId());
+                        list.add(userRoleMapping);
+                        userRoleMappingService.insertBath(list);
+                    }
+                }
+            }
+        } catch (Exception e){
+            logger.info("分配菜单异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, "分配菜单异常");
         }
         return CommConstant.SUCCESS;
     }

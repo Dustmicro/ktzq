@@ -82,6 +82,11 @@ public class CollegeMemberService {
         return collegeMemberMapper.select(collegeMember);
     }
 
+    public CollegeMember selectMemberOne(CollegeMember collegeMember){
+        return collegeMemberMapper.selectByPrimaryKey(collegeMember);
+    }
+
+
     /**
      * 查询所有数据
      * @return

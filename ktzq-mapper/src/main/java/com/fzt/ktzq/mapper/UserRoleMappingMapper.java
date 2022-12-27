@@ -1,16 +1,21 @@
 package com.fzt.ktzq.mapper;
 
 
+import com.fzt.ktzq.dao.MenuRoleMapping;
+import com.fzt.ktzq.dao.Role;
 import com.fzt.ktzq.dao.UserRoleMapping;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import tk.mybatis.mapper.common.Mapper;
+import tk.mybatis.mapper.common.special.InsertListMapper;
 
 import java.util.List;
 
-public interface UserRoleMappingMapper extends Mapper<UserRoleMapping> {
+public interface UserRoleMappingMapper extends Mapper<UserRoleMapping>, InsertListMapper<UserRoleMapping> {
+
+    void insertBath(List<UserRoleMapping> list);
 //    int deleteByPrimaryKey(Integer id);
 //
 //    int insert(UserRoleMapping record);

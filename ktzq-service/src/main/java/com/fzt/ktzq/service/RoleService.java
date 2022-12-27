@@ -44,6 +44,22 @@ public class RoleService {
     }
 
     /**
+     * 批量插入
+     * @param list
+     * @return
+     */
+    public boolean insertBath(List<Role> list){
+        boolean flag = false;
+        try {
+            roleMapper.insertBath(list);
+            flag = true;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    /**
      * 删除角色
      * @param role
      * @return

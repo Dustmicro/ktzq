@@ -5,3 +5,4 @@
 2、如果是MySQL的自增字段，加上@GeneratedValue(generator = “JDBC”)即可。
 3、@Select("sql语句")
 List<User> queryBrandByCid(@Param("where条件") String userId);
+4、目前用户表userid是长整型，球队成员memberid是整型，员工staffid是整型，后期需要酌情调整一下

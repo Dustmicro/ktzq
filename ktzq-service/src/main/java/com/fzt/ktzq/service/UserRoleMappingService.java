@@ -1,5 +1,6 @@
 package com.fzt.ktzq.service;
 
+import com.fzt.ktzq.dao.Role;
 import com.fzt.ktzq.dao.UserRoleMapping;
 import com.fzt.ktzq.mapper.UserRoleMappingMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,22 @@ public class UserRoleMappingService {
         boolean flag = false;
         try {
             userRoleMappingMapper.updateByUserId(userRoleMapping);
+            flag = true;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    /**
+     * 批量插入
+     * @param list
+     * @return
+     */
+    public boolean insertBath(List<UserRoleMapping> list){
+        boolean flag = false;
+        try {
+            userRoleMappingMapper.insertBath(list);
             flag = true;
         } catch (Exception e){
             e.printStackTrace();
