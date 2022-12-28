@@ -70,6 +70,10 @@ public class UserRoleMappingService {
         return userRoleMappingMapper.selectByUserId(userId);
     }
 
+    public UserRoleMapping selectForUserId(Integer roleId){
+        return userRoleMappingMapper.selectForUserId(roleId);
+    }
+
     public List<UserRoleMapping> selectUser(UserRoleMapping userRoleMapping){
         return userRoleMappingMapper.select(userRoleMapping);
     }

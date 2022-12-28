@@ -34,6 +34,9 @@ public interface UserRoleMappingMapper extends Mapper<UserRoleMapping>, InsertLi
 
     @Select("select * from user_role_mapping where user_id = #{userId}")
     List<UserRoleMapping> selectByUserId(@Param("userId") Long userId);
+
+    @Select("select * from user_role_mapping where role_id = #{roleId}")
+    UserRoleMapping selectForUserId(@Param("roleId") Integer roleId);
 //
 //    UserRoleMapping find(UserRoleMapping record);
 //

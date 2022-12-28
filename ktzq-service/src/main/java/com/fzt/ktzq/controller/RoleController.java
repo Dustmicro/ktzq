@@ -190,8 +190,15 @@ public class RoleController {
     public String updateRole(@RequestBody Role role) throws ServiceException{
         logger.info("开始修改角色，请求参数，{}", role);
         try {
-            //在这里加入一些校验
+            User user = AuthUserContext.getUser();
+            UserRoleMapping userId = userRoleMappingService.selectForUserId(role.getRoleId());
+            if (user.getUserId().equals(userId.getUserId())){
+                throw new ServiceException(CommConstant.ERROR_CODE, "不能修改自己的角色");
+            }
             roleService.updateRole(role);
+        } catch (ServiceException e){
+            logger.info("查询角色信息异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, e.getDesc());
         } catch (Exception e){
             logger.info("查询角色信息异常");
             throw new ServiceException(CommConstant.ERROR_CODE, "查询角色信息异常");
