@@ -25,6 +25,9 @@ public class CollegeMemberController {
     @Autowired
     CollegeMemberService collegeMemberService;
 
+    @Autowired
+    StaffController staffController;
+
     /**
      * 查询球队成员类型
      * @return
@@ -73,9 +76,12 @@ public class CollegeMemberController {
         logger.info("新增球队成员服务开始，请求参数，{}", collegeMember);
         Assert.notNull(collegeMember.getMemberTypeCd(), "球队成员类型不可为空！！");
         Assert.notNull(collegeMember.getName(), "姓名不可为空");
+        Assert.notNull(collegeMember.getTel(), "球队成员电话不可为空");
         try {
+
             collegeMemberService.addMember(collegeMember);
-            //这里还应该在添加一些数据校验
+            //如果是队长、副队长、球队管理员身份还应该直接添加到对应员工下
+
         } catch (Exception e){
             throw new ServiceException(CommConstant.ERROR_CODE, "新增球队成员信息异常");
         }

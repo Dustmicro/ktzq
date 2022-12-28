@@ -156,6 +156,17 @@
         <!--            <artifactId>xstream-distribution</artifactId>-->
         <!--            <version>1.4.19</version>-->
         <!--        </dependency>-->
+        <!--sm加密-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.4.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.58</version>
+        </dependency>
     </dependencies>
 
     <build>
