@@ -60,7 +60,7 @@ public class AereController {
     }
 
     /**
-     * 新增球队
+     * 新增区域
      * @param aere
      * @return
      * @throws ServiceException
@@ -80,13 +80,13 @@ public class AereController {
             name.setAereName(aere.getAereName());
             List<Aere> list = aereService.selectAere(name);
             if (StringUtilsFzt.isNotEmpty(list)){
-                throw new ServiceException(CommConstant.ERROR_CODE, "球队名称为" + aere.getAereName() + "的球队已存在，请重新输入");
+                throw new ServiceException(CommConstant.ERROR_CODE, "区域名称为" + aere.getAereName() + "的区域已存在，请重新输入");
             }
             name.setAereNum(null);
             name.setAereNum(aere.getAereNum());
             List<Aere> num = aereService.selectAere(name);
             if (StringUtilsFzt.isNotEmpty(num)){
-                throw new ServiceException(CommConstant.ERROR_CODE, "球队编号为" + aere.getAereNum() + "的球队已存在，请重新输入");
+                throw new ServiceException(CommConstant.ERROR_CODE, "区域编号为" + aere.getAereNum() + "的区域已存在，请重新输入");
             }
             aereService.addAere(aere);
         } catch (ServiceException e){
