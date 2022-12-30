@@ -40,6 +40,7 @@
     <orderEntry type="module" module-name="ktzq-mapper" />
     <orderEntry type="module" module-name="ktzq-comm" />
     <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.5" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.15" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.7.6" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.7.6" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.24" level="project" />
@@ -136,7 +137,6 @@
     <orderEntry type="library" name="Maven: org.apache.commons:commons-pool2:2.11.1" level="project" />
     <orderEntry type="library" name="Maven: io.swagger:swagger-annotations:1.5.14" level="project" />
     <orderEntry type="library" name="Maven: org.apache.poi:poi:5.2.2" level="project" />
-    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.15" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-collections4:4.4" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-math3:3.6.1" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.11.0" level="project" />
