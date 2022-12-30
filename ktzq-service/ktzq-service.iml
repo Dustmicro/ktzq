@@ -35,11 +35,11 @@
     <orderEntry type="library" name="Maven: tk.mybatis:mapper-spring:1.1.5" level="project" />
     <orderEntry type="library" name="Maven: tk.mybatis:mapper-extra:1.1.5" level="project" />
     <orderEntry type="library" name="Maven: tk.mybatis:mapper-spring-boot-autoconfigure:2.1.5" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-web:5.3.24" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.24" level="project" />
     <orderEntry type="module" module-name="ktzq-mapper" />
     <orderEntry type="module" module-name="ktzq-comm" />
     <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.5" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-web:5.3.24" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.24" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.7.6" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.7.6" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.24" level="project" />
