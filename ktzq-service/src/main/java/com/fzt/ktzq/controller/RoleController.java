@@ -66,14 +66,14 @@ public class RoleController {
                 param.setCollegeId(role.getCollegeId());
                 param.setRoleName(role.getRoleName());
                 if (StringUtilsFzt.isNotEmpty(roleService.selectRoleList(param))){
-                    throw new ServiceException(CommConstant.ERROR_CODE, "角色名重复");
+                    throw new ServiceException(CommConstant.ERROR_CODE, "角色名称重复");
                 } else {
                     //添加区域下角色
                     param.setAereId(role.getAereId());
                     param.setRoleName(role.getRoleName());
                     role.setCollegeId(null);
                     if (StringUtilsFzt.isNotEmpty(roleService.selectRoleList(param))){
-                        throw new ServiceException(CommConstant.ERROR_CODE, "角色名重复");
+                        throw new ServiceException(CommConstant.ERROR_CODE, "角色名称重复");
                     }
                 }
                 roleService.addRole(role);
