@@ -43,4 +43,25 @@ public class AdminController {
         }
         return RestResult.success("限制登录成功");
     }
+
+    /**
+     * 恢复登录
+     * @param user
+     * @return
+     * @throws ServiceException
+     */
+    @ApiOperation(value = "恢复登录")
+    @RequestMapping(value = "/restoreLogin", method = RequestMethod.POST)
+    public RestResult<Object> restoreLogin(@RequestBody User user) throws ServiceException {
+        logger.info("恢复登录服务开始，请求参数，{}", user);
+        try {
+            //将status设置为“1”解锁账户
+            user.setStatus("1");
+            userService.updateUser(user);
+        } catch (Exception e){
+            logger.error("恢复登录异常", e);
+            throw new ServiceException(CommConstant.ERROR_CODE, "恢复登录异常");
+        }
+        return RestResult.success("恢复登录成功");
+    }
 }
