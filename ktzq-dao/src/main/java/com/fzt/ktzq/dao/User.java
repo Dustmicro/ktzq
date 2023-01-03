@@ -64,5 +64,7 @@ public class User implements Serializable {
 
     private Integer logId;
 
+    private String status;
+
     private static final long serialVersionUID = 1L;
 }
