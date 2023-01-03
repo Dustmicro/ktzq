@@ -13,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author 黄弋峰 2023/1/3
  */
+@RestController
 public class AdminController {
     private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
