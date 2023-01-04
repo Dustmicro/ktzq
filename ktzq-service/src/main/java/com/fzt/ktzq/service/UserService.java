@@ -1,6 +1,8 @@
 package com.fzt.ktzq.service;
 
+import com.fzt.ktzq.dao.Admin;
 import com.fzt.ktzq.dao.User;
+import com.fzt.ktzq.mapper.AdminMapper;
 import com.fzt.ktzq.mapper.UserMapper;
 import com.fzt.ktzq.util.StringUtilsFzt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class UserService {
 
     @Autowired(required = false)
     private UserMapper userMapper;
+
+    @Autowired(required = false)
+    private AdminMapper adminMapper;
 
     public List<User>findAll(){
         return userMapper.selectAll();
@@ -81,6 +86,15 @@ public class UserService {
      */
     public List<User> checkUser(User user){
         return userMapper.select(user);
+    }
+
+    /**
+     * 管理员模糊查询（sql还未写）
+     * @param admin
+     * @return
+     */
+    public List<Admin> selectAdmin(Admin admin){
+        return adminMapper.select(admin);
     }
 
     /**

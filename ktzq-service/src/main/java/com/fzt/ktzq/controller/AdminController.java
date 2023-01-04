@@ -1,11 +1,12 @@
 package com.fzt.ktzq.controller;
 
+import com.fzt.ktzq.common.appmid.parser.AppMidRequestHeader;
 import com.fzt.ktzq.common.appmid.parser.ServiceException;
-import com.fzt.ktzq.dao.Aere;
-import com.fzt.ktzq.dao.RestResult;
-import com.fzt.ktzq.dao.User;
+import com.fzt.ktzq.dao.*;
 import com.fzt.ktzq.service.UserService;
 import com.fzt.ktzq.util.CommConstant;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.page.PageMethod;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author 黄弋峰 2023/1/3
@@ -65,5 +68,26 @@ public class AdminController {
             throw new ServiceException(CommConstant.ERROR_CODE, "恢复登录异常");
         }
         return RestResult.success("恢复登录成功");
+    }
+
+    /**
+     * 管理员迷糊查询
+     * @param admin
+     * @param header
+     * @return
+     * @throws ServiceException
+     */
+    @ApiOperation(value = "管理员模糊查询")
+    @RequestMapping(value = "/findAdmin", method = RequestMethod.POST)
+    public RspPage<Admin> findAdmin(@RequestBody Admin admin, AppMidRequestHeader header) throws ServiceException {
+        try {
+            PageMethod.startPage(header.getPageNo(), header.getPageSize());
+            List<Admin> list = userService.selectAdmin(admin);
+            Page<Admin> page = (Page<Admin>) list;
+            return RspPage.getRspPage(page);
+        } catch (Exception e){
+            logger.error("查询管理员异常", e);
+            throw new ServiceException(CommConstant.ERROR_CODE, "查询管理员异常");
+        }
     }
 }
