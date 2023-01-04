@@ -1,5 +1,7 @@
 package com.fzt.ktzq.dao;
 
+import com.fzt.ktzq.utils.PrivacyEncrypt;
+import com.fzt.ktzq.utils.PrivacyTypeEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +29,7 @@ public class User implements Serializable {
 
     private Integer age;
 
+    @PrivacyEncrypt(type = PrivacyTypeEnum.TEL) // 隐藏手机号
     private String tel;
 
     private Integer sex;
@@ -63,6 +66,8 @@ public class User implements Serializable {
     private String passwordRept;
 
     private Integer logId;
+
+    private String idCard;
 
     private String status;
 
