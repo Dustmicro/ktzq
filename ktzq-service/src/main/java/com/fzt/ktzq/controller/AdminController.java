@@ -90,4 +90,25 @@ public class AdminController {
             throw new ServiceException(CommConstant.ERROR_CODE, "查询管理员异常");
         }
     }
+
+    /**
+     * 管理员隶属球队查询
+     * @param admin
+     * @param header
+     * @return
+     * @throws ServiceException
+     */
+    @ApiOperation(value = "管理员隶属球队查询")
+    @RequestMapping(value = "/findAdminForQD", method = RequestMethod.POST)
+    public RspPage<Admin> findAdminForQD(@RequestBody Admin admin, AppMidRequestHeader header) throws ServiceException {
+        try {
+            PageMethod.startPage(header.getPageNo(), header.getPageSize());
+            List<Admin> list = userService.selectAdmin(admin);
+            Page<Admin> page = (Page<Admin>) list;
+            return RspPage.getRspPage(page);
+        } catch (Exception e){
+            logger.error("查询管理员隶属球队异常", e);
+            throw new ServiceException(CommConstant.ERROR_CODE, "查询管理员隶属球队异常");
+        }
+    }
 }

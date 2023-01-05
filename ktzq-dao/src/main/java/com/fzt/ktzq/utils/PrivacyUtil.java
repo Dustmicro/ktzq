@@ -36,20 +36,6 @@ public class PrivacyUtil {
         return desValue(chineseName, 1, 0, "*");
     }
 
-//    /**
-//     * 【身份证号】显示前4位, 后2位
-//     */
-//    public static String hideIdCard(String idCard) {
-//        return desValue(idCard, 4, 2, *);
-//    }
-
-//    /**
-//     * 【手机号码】前三位，后四位，其他隐藏。
-//     */
-//    public static String hidePhone(String phone) {
-//        return desValue(phone, 3, 4, *);
-//    }
-
     /**
      * 对字符串进行脱敏操作
      * @param origin          原始字符串
@@ -76,8 +62,4 @@ public class PrivacyUtil {
         }
         return sb.toString();
     }
-
-//    public static void main(String[] args) {
-//        System.out.println(hideChineseName(张三三));
-//    }
 }

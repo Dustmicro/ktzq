@@ -98,6 +98,15 @@ public class UserService {
     }
 
     /**
+     * 管理员隶属球队查询
+     * @param admin
+     * @return
+     */
+    public List<Admin> selectAdminForQD(Admin admin){
+        return adminMapper.selectAdminForQD(admin);
+    }
+
+    /**
      * 根据ID删除数据库中信息
      * @param userId
      * @return
