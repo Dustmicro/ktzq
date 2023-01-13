@@ -34,5 +34,7 @@ public class PaySub implements Serializable {
 
     private String statusCd;
 
+    private String subMark;
+
     private static final long serialVersionUID = 1L;
 }
