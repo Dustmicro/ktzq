@@ -1,4 +1,4 @@
-package com.fzt.ktzq.controller;
+package com.fzt.ktzq.service;
 
 import com.fzt.ktzq.dao.RecordDay;
 import com.fzt.ktzq.mapper.RecordDayMapper;
