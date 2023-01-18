@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -31,6 +32,9 @@ public class RecordDay implements Serializable {
     private String mark;
 
     private String statusCd;
+
+    @Transient
+    private String collegeMemberName;
 
     private static final long serialVersionUID = 1L;
 
