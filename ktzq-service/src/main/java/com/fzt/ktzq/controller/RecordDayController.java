@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 每日考勤控制类
@@ -34,7 +36,7 @@ public class RecordDayController {
      * @throws ServiceException
      */
     @RequestMapping(value = "/selectRecordDay",method = RequestMethod.GET)
-    public List<RecordDay> selectRecordDay(@RequestBody RecordDay recordDay) throws ServiceException{
+    public Map<String, List<RecordDay>> selectRecordDay(@RequestBody RecordDay recordDay) throws ServiceException{
         logger.info("查询考勤服务开始，请求参数，{}", recordDay);
         try {
             /**
@@ -44,7 +46,9 @@ public class RecordDayController {
              *                       2、正常insert
              */
             List<RecordDay> list = recordDayService.selectRecordDay(recordDay);
-            return list;
+            Map<String, List<RecordDay>> map = new HashMap<>();
+            map.put("list", list);
+            return map;
         } catch (Exception e){
             logger.info("查询异常");
             throw new ServiceException(CommConstant.ERROR_CODE, "查询异常");
@@ -90,6 +94,27 @@ public class RecordDayController {
         } catch (Exception e){
             logger.info("删除异常");
             throw new ServiceException(CommConstant.ERROR_CODE, "删除异常");
+        }
+        return RestResult.success(CommConstant.SUCCESS);
+    }
+
+    /**
+     * 修改每日考勤
+     * @param recordDay
+     * @return
+     * @throws ServiceException
+     */
+    @RequestMapping(value = "/updateRecordDay",method = RequestMethod.POST)
+    public RestResult<String> updateRecordDay(@RequestBody RecordDay recordDay) throws ServiceException{
+        logger.info("修改考勤服务开始，请求参数，{}", recordDay);
+        try {
+            /**
+             * 优化服务要求及注意事项同上面一样
+             */
+            recordDayService.updateRecordDay(recordDay);
+        } catch (Exception e){
+            logger.info("修改异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, "修改异常");
         }
         return RestResult.success(CommConstant.SUCCESS);
     }
