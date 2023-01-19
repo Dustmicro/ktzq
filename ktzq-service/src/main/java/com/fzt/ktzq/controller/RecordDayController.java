@@ -75,4 +75,22 @@ public class RecordDayController {
         }
         return RestResult.success(CommConstant.SUCCESS);
     }
+
+    /**
+     * 删除每日考勤
+     * @param recordDay
+     * @return
+     * @throws ServiceException
+     */
+    @RequestMapping(value = "/deleteRecordDay",method = RequestMethod.POST)
+    public RestResult<String> deleteRecordDay(@RequestBody RecordDay recordDay) throws ServiceException{
+        logger.info("删除考勤服务开始，请求参数，{}", recordDay);
+        try {
+            recordDayService.deleteRecordDay(recordDay);
+        } catch (Exception e){
+            logger.info("删除异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, "删除异常");
+        }
+        return RestResult.success(CommConstant.SUCCESS);
+    }
 }
