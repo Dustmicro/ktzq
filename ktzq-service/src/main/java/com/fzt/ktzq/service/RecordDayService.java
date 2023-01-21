@@ -27,6 +27,23 @@ public class RecordDayService {
     }
 
     /**
+     * 一次性查询所有考勤
+     * @return
+     */
+    public List<RecordDay> selectRecordDayAll(){
+        return recordDayMapper.selectAll();
+    }
+
+    /**
+     * 根据条件查询单条数据
+     * @param recordDay
+     * @return
+     */
+    public RecordDay select(RecordDay recordDay){
+        return recordDayMapper.selectOne(recordDay);
+    }
+
+    /**
      * 新增考勤
      * @param recordDay
      * @return
