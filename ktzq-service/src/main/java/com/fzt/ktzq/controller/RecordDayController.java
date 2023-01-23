@@ -5,14 +5,12 @@ import com.fzt.ktzq.dao.RecordDay;
 import com.fzt.ktzq.dao.RestResult;
 import com.fzt.ktzq.service.RecordDayService;
 import com.fzt.ktzq.util.CommConstant;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -35,6 +33,7 @@ public class RecordDayController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation("查询每日考勤")
     @RequestMapping(value = "/selectRecordDay",method = RequestMethod.GET)
     public Map<String, List<RecordDay>> selectRecordDay(@RequestBody RecordDay recordDay) throws ServiceException{
         logger.info("查询考勤服务开始，请求参数，{}", recordDay);
@@ -56,11 +55,32 @@ public class RecordDayController {
     }
 
     /**
+     * 查询所有考勤数据
+     * @return
+     * @throws ServiceException
+     */
+    @ApiOperation("查询所有考勤数据")
+    @GetMapping(value = "/selectRecordDayAll")
+    public Map<String, List<RecordDay>> selectRecordDayAll() throws ServiceException{
+        logger.info("查询考勤服务开始");
+        try {
+            List<RecordDay> list = recordDayService.selectRecordDayAll();
+            Map<String, List<RecordDay>> map = new HashMap<>();
+            map.put("list", list);
+            return map;
+        } catch (Exception e){
+            logger.info("查询异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, "查询异常");
+        }
+    }
+
+    /**
      * 新增考勤
      * @param recordDay
      * @return
      * @throws ServiceException
      */
+    @ApiOperation("新增考勤")
     @RequestMapping(value = "/addRecordDay",method = RequestMethod.POST)
     public RestResult<String> addRecordDay(@RequestBody RecordDay recordDay) throws ServiceException{
         logger.info("新增考勤服务开始，请求参数，{}", recordDay);
@@ -86,6 +106,7 @@ public class RecordDayController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation("删除每日考勤")
     @RequestMapping(value = "/deleteRecordDay",method = RequestMethod.POST)
     public RestResult<String> deleteRecordDay(@RequestBody RecordDay recordDay) throws ServiceException{
         logger.info("删除考勤服务开始，请求参数，{}", recordDay);
@@ -104,6 +125,7 @@ public class RecordDayController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation("修改每日考勤")
     @RequestMapping(value = "/updateRecordDay",method = RequestMethod.POST)
     public RestResult<String> updateRecordDay(@RequestBody RecordDay recordDay) throws ServiceException{
         logger.info("修改考勤服务开始，请求参数，{}", recordDay);
