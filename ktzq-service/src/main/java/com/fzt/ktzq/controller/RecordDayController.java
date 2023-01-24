@@ -28,7 +28,7 @@ public class RecordDayController {
     RecordDayService recordDayService;
 
     /**
-     * 查询每日考勤
+     * 查询每日考勤（根据条件查询）
      * @param recordDay
      * @return
      * @throws ServiceException
@@ -55,7 +55,7 @@ public class RecordDayController {
     }
 
     /**
-     * 查询所有考勤数据
+     * 查询所有考勤数据（直接查询）
      * @return
      * @throws ServiceException
      */
