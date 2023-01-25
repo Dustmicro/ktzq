@@ -55,7 +55,7 @@ public class RecordDayController {
     }
 
     /**
-     * 查询所有考勤数据（直接查询）
+     * 查询所有考勤数据（直接查询1）
      * @return
      * @throws ServiceException
      */
