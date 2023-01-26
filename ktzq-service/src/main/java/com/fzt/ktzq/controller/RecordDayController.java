@@ -42,7 +42,7 @@ public class RecordDayController {
              * 后期优化：1、人员考勤状态根据时间戳来判断
              *         2、如何做到管理者在录入数据的时候能够实时
              *         3、考勤记录方式：1、录入在职的人员，通过update状态来实现考勤状态
-             *                       2、正常insert
+             *                       2、正常insert插入
              */
             List<RecordDay> list = recordDayService.selectRecordDay(recordDay);
             Map<String, List<RecordDay>> map = new HashMap<>();
