@@ -84,7 +84,7 @@ public class RecordDayController {
     @RequestMapping(value = "/addRecordDay",method = RequestMethod.POST)
     public RestResult<String> addRecordDay(@RequestBody RecordDay recordDay) throws ServiceException{
         logger.info("新增考勤服务开始，请求参数，{}", recordDay);
-        Assert.isNull(recordDay.getCreateTime(), "考勤时间不可为空");
+        Assert.isNull(recordDay.getCreateTime(), "考勤时间不能为空");
         Assert.isNull(recordDay.getCollegeMemberName(), "球队成员姓名不可为空");
         try {
             /**
