@@ -69,7 +69,7 @@ public class RecordDayController {
             map.put("list", list);
             return map;
         } catch (Exception e){
-            logger.info("查询异常");
+            logger.info("查询异常！");
             throw new ServiceException(CommConstant.ERROR_CODE, "查询异常");
         }
     }
