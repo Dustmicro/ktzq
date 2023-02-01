@@ -88,7 +88,7 @@ public class RecordDayController {
         Assert.isNull(recordDay.getCollegeMemberName(), "球队成员姓名不可为空");
         try {
             /**
-             * 后期优化：1、如何同步数据
+             * 后期强制优化：1、如何同步数据
              *         2、能否单条数据添加，或是指定批量导入
              *         3、时间是手动添加还是实时时间
              */
