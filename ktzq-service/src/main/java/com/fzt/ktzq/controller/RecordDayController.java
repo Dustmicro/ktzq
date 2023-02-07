@@ -113,7 +113,7 @@ public class RecordDayController {
         try {
             recordDayService.deleteRecordDay(recordDay);
         } catch (Exception e){
-            logger.info("删除异常");
+            logger.info("删除异常！");
             throw new ServiceException(CommConstant.ERROR_CODE, "删除异常");
         }
         return RestResult.success(CommConstant.SUCCESS);
