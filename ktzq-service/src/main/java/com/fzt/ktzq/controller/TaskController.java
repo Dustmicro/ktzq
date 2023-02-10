@@ -48,6 +48,7 @@ public class TaskController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation("查询定时任务")
     @RequestMapping(value = "/selectTask", method = RequestMethod.POST)
     public RspPage<Task> selectTask(@RequestBody Task task) throws ServiceException{
         logger.info("查询定时任务服务开始，请求参数，{}", task);
@@ -67,6 +68,7 @@ public class TaskController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation("新增定时任务")
     @RequestMapping(value = "/addTask", method = RequestMethod.POST)
     public String addTask(@RequestBody Task task) throws ServiceException{
         logger.info("新增定时任务服务开始，请求参数，{}", task);
@@ -89,6 +91,7 @@ public class TaskController {
      * @return
      * @throws ServiceException
      */
+    @ApiOperation("开启定时任务")
     @RequestMapping(value = "/startTask", method = RequestMethod.POST)
     public String startTask(@RequestBody Task task, ServiceParamsBean params) throws ServiceException{
         logger.info("开启定时任务服务开始，请求参数，{}", task);
@@ -98,6 +101,72 @@ public class TaskController {
         } catch (Exception e) {
             logger.info("开启定时任务异常");
             throw new ServiceException(CommConstant.ERROR_CODE, "开启定时任务异常");
+        }
+        return CommConstant.SUCCESS;
+    }
+
+    /**
+     * 停止定时任务
+     * @param task
+     * @param params
+     * @return
+     * @throws ServiceException
+     */
+    @ApiOperation("停止定时任务")
+    @RequestMapping(value = "/stopTask", method = RequestMethod.POST)
+    public String stopTask(@RequestBody Task task, ServiceParamsBean params) throws ServiceException{
+        logger.info("停止定时任务服务开始，请求参数，{}", task);
+        Assert.notNull(task.getTaskId(), "任务id不可为空");
+        try {
+            callService("stopTaskUrl", params, task);
+        } catch (Exception e) {
+            logger.info("停止定时任务异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, "停止定时任务异常");
+        }
+        return CommConstant.SUCCESS;
+    }
+
+    /**
+     * 删除定时任务
+     * @param task
+     * @param params
+     * @return
+     * @throws ServiceException
+     */
+    @ApiOperation("删除定时任务")
+    @RequestMapping(value = "/deleteTask", method = RequestMethod.POST)
+    public String deleteTask(@RequestBody Task task, ServiceParamsBean params) throws ServiceException{
+        logger.info("删除定时任务服务开始，请求参数，{}", task);
+        Assert.notNull(task.getTaskId(), "任务id不可为空");
+        try {
+            taskService.deleteTask(task);
+        } catch (Exception e) {
+            logger.info("删除定时任务异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, "删除定时任务异常");
+        }
+        return CommConstant.SUCCESS;
+    }
+
+    /**
+     * 修改定时任务
+     * @param task
+     * @param params
+     * @return
+     * @throws ServiceException
+     */
+    @ApiOperation("修改定时任务")
+    @RequestMapping(value = "/updateTask", method = RequestMethod.POST)
+    public String updateTask(@RequestBody Task task, ServiceParamsBean params) throws ServiceException{
+        logger.info("修改定时任务服务开始，请求参数，{}", task);
+        Assert.notNull(task.getTaskId(), "任务id不可为空");
+        Assert.notNull(task.getClassBean(), "对应class不可为空");
+        Assert.notNull(task.getTaskName(), "任务名称不可为空");
+        Assert.notNull(task.getTaskCron(), "对应时间不可为空");
+        try {
+            taskService.updateTask(task);
+        } catch (Exception e) {
+            logger.info("修改定时任务异常");
+            throw new ServiceException(CommConstant.ERROR_CODE, "修改定时任务异常");
         }
         return CommConstant.SUCCESS;
     }
@@ -120,7 +189,6 @@ public class TaskController {
             if (!"1".equals(code)) {
                 throw new ServiceException(CommConstant.ERROR_CODE, responseVo.getMsg());
             }
-
         } else {
             throw new ServiceException(CommConstant.ERROR_CODE, "调用定时任务服务返回为空");
         }
