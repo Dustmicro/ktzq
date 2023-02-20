@@ -20,7 +20,7 @@ public class UserController {
     private UserService userService;
 
     /**
-     * 查询所有数据d
+     * 查询所有数据
      * @return
      */
     @GetMapping("/selectUserAll")
