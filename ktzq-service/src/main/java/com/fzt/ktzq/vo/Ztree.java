@@ -40,12 +40,127 @@ public class Ztree implements Serializable {
     /**功能集合**/
     private List<MenuFunBean> funBeanList;
 
+    /**子部门集合**/
+    private List<Ztree> subList;
+
     /**是否勾选**/
     private boolean checked = false;
 
     /**是否展开**/
     private boolean open = false;
 
-    /****/
+    /**是否勾选**/
+    private boolean nocheck = false;
 
+    public List<Ztree> getSubList() {
+        return subList;
+    }
+
+    public void setSubList(List<Ztree> subList) {
+        this.subList = subList;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Integer getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Integer deptId) {
+        this.deptId = deptId;
+    }
+
+    public String getmType() {
+        return mType;
+    }
+
+    public void setmType(String mType) {
+        this.mType = mType;
+    }
+
+    public String getLeveName() {
+        return leveName;
+    }
+
+    public void setLeveName(String leveName) {
+        this.leveName = leveName;
+    }
+
+    public int getpId() {
+        return pId;
+    }
+
+    public void setpId(int pId) {
+        this.pId = pId;
+    }
+
+    public String getpName() {
+        return pName;
+    }
+
+    public void setpName(String pName) {
+        this.pName = pName;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getSeq() {
+        return seq;
+    }
+
+    public void setSeq(int seq) {
+        this.seq = seq;
+    }
+
+    public List<MenuFunBean> getFunBeanList() {
+        return funBeanList;
+    }
+
+    public void setFunBeanList(List<MenuFunBean> funBeanList) {
+        this.funBeanList = funBeanList;
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
+    public boolean isOpen() {
+        return open;
+    }
+
+    public void setOpen(boolean open) {
+        this.open = open;
+    }
+
+    public boolean isNocheck() {
+        return nocheck;
+    }
+
+    public void setNocheck(boolean nocheck) {
+        this.nocheck = nocheck;
+    }
 }
