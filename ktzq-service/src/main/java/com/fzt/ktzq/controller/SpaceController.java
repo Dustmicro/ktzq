@@ -53,8 +53,8 @@ public class SpaceController {
             List<Space> list = spaceService.selectSpace(space);
             return list;
         } catch (Exception e){
-            logger.info("场地信息查询失败");
-            throw new ServiceException(CommConstant.ERROR_CODE, "场地信息查询失败");
+            logger.info("场地信息查询失败！");
+            throw new ServiceException(CommConstant.ERROR_CODE, "场地信息查询失败！");
         }
     }
 }
