@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Created-By: IntelliJ IDEA
-Built-By: hyf-htp
-Build-Jdk: version 1.8.0_322
+Built-By: 16481
+Build-Jdk: 1.8.0_301
 Implementation-Title: ktzq-comm
 Implementation-Version: 0.0.1-SNAPSHOT
 Implementation-Vendor-Id: com.example

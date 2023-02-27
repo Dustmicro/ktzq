@@ -58,5 +58,25 @@ public class Test {
 //        } else {
 //            System.out.println("huhuhu" + a);
 //        }
+        Test3(4);
+    }
+
+    public static void Test3(int n){
+        int k,i,j,a[][] = new int[n][n];
+        k = 1;
+        for (i=0; i<n; i++){
+            if (i%2 == 0){
+                for (j=0; j<=i; j++) a[i][j] = k++;
+                for (j=i-1; j >= 0; j--) a[j][i] = k++;
+            } else {
+                for (j=0; j <=i; j++) a[j][i] = k++;
+                for (j=i-1; j>=0; j--) a[i][j] = k++;
+            }
+        }
+        for (i=0; i<n; i++){
+            for (j=0; j<n; j++){
+                System.out.println();
+            }
+        }
     }
 }
