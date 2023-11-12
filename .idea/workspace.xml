@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d37d198-dcaa-4696-8f75-e14f16ff0e5f" name="Changes" comment="阔别已久的提交">
-      <change afterPath="$PROJECT_DIR$/ktzq-comm/src/main/java/com/fzt/ktzq/util/ConvertUpMoney.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ktzq-comm/src/main/java/com/fzt/ktzq/util/MethodToolUtils.java" afterDir="false" />
+    <list default="true" id="3d37d198-dcaa-4696-8f75-e14f16ff0e5f" name="Changes" comment="user = 黄弋峰 新增数字、金额转中文大写方法、新增获取本地IPv4地址方法">
+      <change afterPath="$PROJECT_DIR$/ktzq-comm/src/main/java/com/fzt/ktzq/util/SuperCount2.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ktzq-service/src/main/java/com/fzt/ktzq/KtzqApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ktzq-service/src/main/java/com/fzt/ktzq/KtzqApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ktzq-service/target/classes/com/fzt/ktzq/KtzqApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/ktzq-service/target/classes/com/fzt/ktzq/KtzqApplication.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +21,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="JpbToolWindowState">
     <option name="myId2FirstActivated">
       <map>
@@ -35,6 +36,9 @@
       </map>
     </option>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -45,6 +49,7 @@
       </MavenGeneralSettings>
     </option>
   </component>
+  <component name="ProjectId" id="2Y4gp6veEohRG7YWaY0gb0xw0ZY" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -52,24 +57,38 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/超级计算器/dev-workspace/superAiCount",
-    "project.structure.last.edited": "Problems",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "MavenSettings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/超级计算器/dev-workspace/superAiCount&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;c13cd957f1854027c9d1c3303bf197fb&quot;
   }
-}]]></component>
-  <component name="RunManager">
+}</component>
+  <component name="RunManager" selected="Application.SuperCount2">
+    <configuration name="SuperCount2" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.fzt.ktzq.util.SuperCount2" />
+      <module name="ktzq-comm" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.fzt.ktzq.util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="KtzqApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="ktzq-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.fzt.ktzq.KtzqApplication" />
@@ -77,6 +96,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.SuperCount2" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -86,7 +110,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1699680645356</updated>
-      <workItem from="1699680647634" duration="4039000" />
+      <workItem from="1699680647634" duration="5425000" />
+      <workItem from="1699790456321" duration="517000" />
+      <workItem from="1699791480269" duration="2836000" />
     </task>
     <task id="LOCAL-00001" summary="阔别已久的提交">
       <created>1699681815486</created>
@@ -95,7 +121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699681815486</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="user = 黄弋峰 新增数字、金额转中文大写方法、新增获取本地IPv4地址方法">
+      <created>1699684797716</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1699684797716</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,7 +147,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="阔别已久的提交" />
-    <option name="LAST_COMMIT_MESSAGE" value="阔别已久的提交" />
+    <MESSAGE value="user = 黄弋峰 新增数字、金额转中文大写方法、新增获取本地IPv4地址方法" />
+    <option name="LAST_COMMIT_MESSAGE" value="user = 黄弋峰 新增数字、金额转中文大写方法、新增获取本地IPv4地址方法" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

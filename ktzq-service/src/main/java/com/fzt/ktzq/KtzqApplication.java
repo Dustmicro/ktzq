@@ -14,6 +14,9 @@ import java.net.SocketException;
 import java.util.Scanner;
 
 
+/**
+ *
+ */
 @SpringBootApplication
 //@EnableTransactionManagement//开启事务管理
 @MapperScan("com.fzt.ktzq.mapper")
